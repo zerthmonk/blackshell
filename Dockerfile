@@ -1,4 +1,4 @@
-FROM node:17-alpine
+FROM node:17-alpine as base
 
 RUN apk update && apk upgrade \
     && apk add --no-cache bash git openssh
@@ -6,7 +6,7 @@ RUN apk update && apk upgrade \
 WORKDIR /app
 
 RUN chown -R node:node .
-COPY --chown=node:node . .
+COPY --chown=node:node /app .
 RUN npm i
 
 USER node
