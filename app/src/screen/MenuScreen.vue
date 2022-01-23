@@ -1,7 +1,7 @@
 <template>
-  <div class="screen">
-    <component :is="currentMenuComponent"></component>
-  </div>
+<!--  <div class="screen">-->
+<!--    <component :is="currentMenuComponent"></component>-->
+<!--  </div>-->
 
   <div class="screen__background_fill">
     <background
@@ -15,6 +15,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapStores } from 'pinia'
+import { useShellStore} from "@/store";
 import Background from "@/components/basic/Background.vue"
 import Console from "@/components/console/Console.vue"
 
@@ -26,10 +28,19 @@ export default defineComponent({
   },
 
   computed: {
+    ...mapStores(useShellStore),
     currentMenuComponent() {
       return Console
     }
-  }
+  },
+
+  mounted() {
+    const config = this.shellStore.config;
+    if (config.standalone) {
+      console.log(`Blackshell working. Standalone: ${config.standalone} Debug: ${config.debug}`)
+    }
+  },
+
 })
 
 </script>
