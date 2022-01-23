@@ -1,24 +1,27 @@
 <template>
   <div class="application">
     <div class="screen">
-      <PageMain></PageMain>
+      <MenuScreen/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import json from "@/assets/config.json"
-import PageMain from "@/pages/PageMain.vue"
+import config from "@/assets/config.json"
+import MenuScreen from "@/screen/MenuScreen.vue"
 
 export default defineComponent({
   components: {
-    PageMain
+    MenuScreen
   },
   name: 'terminal',
 
   mounted() {
-      console.log(json)
+    if (config.standalone) {
+      console.log(`Blackshell working standalone, config loaded. DEBUG: ${config.debug}`)
+      if (config.debug) console.log(config)
+    }
   }
 })
 

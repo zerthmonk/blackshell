@@ -1,4 +1,8 @@
 <template>
+  <div class="screen">
+    <component :is="currentMenuComponent"></component>
+  </div>
+
   <div class="screen__background_fill">
     <background
       :hue="140"
@@ -6,15 +10,26 @@
       :opacity="80"
     ></background>
   </div>
+
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import Background from "@/components/basic/Background.vue"
+import Console from "@/components/console/Console.vue"
 
 export default defineComponent({
-  name: "PageMain",
-  components: {Background}
+  name: "MenuScreen",
+  components: {
+    Background,
+    Console
+  },
+
+  computed: {
+    currentMenuComponent() {
+      return Console
+    }
+  }
 })
 
 </script>
