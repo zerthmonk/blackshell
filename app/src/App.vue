@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import json from "@/assets/config.json"
 import PageMain from "@/pages/PageMain.vue"
 
 export default defineComponent({
@@ -15,6 +16,10 @@ export default defineComponent({
     PageMain
   },
   name: 'terminal',
+
+  mounted() {
+      console.log(json)
+  }
 })
 
 </script>
