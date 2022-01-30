@@ -1,7 +1,7 @@
 /* SCSS */
 @import './variables';
 
-$caret-color: lighten($main-green, 10%);
+$caret-color: lighten(rgba($color-main, .8), 10%);
 
 .vue-typer {
 

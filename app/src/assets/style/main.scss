@@ -7,13 +7,13 @@ body, html {
   background: $black;
   font-family: $main-font, monospace;
   font-size: 1rem;
-  color: $main-green;
+  color: rgba($color-main, .8);
   overflow: hidden;
   letter-spacing: 1px;
 }
 
 a {
-  color: $main-green;
+  color: rgba($color-main, .8);
   text-decoration: none;
   outline: none;
 }
@@ -114,7 +114,7 @@ a::before {
 
 ::-webkit-scrollbar-thumb {
   background-color: rgba(243, 255, 236, 0.1);    /* color of the scroll thumb */
-  border: 1px solid $main-green;  /* creates padding around scroll thumb */
+  border: 1px solid rgba($color-main, .8);  /* creates padding around scroll thumb */
 }
 
 .noselect {
