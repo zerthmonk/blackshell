@@ -1,15 +1,14 @@
 import { defineStore } from "pinia"
-import { Config } from '@/models'
-import configData from "@/assets/config.json"
+import { ConsoleEvent } from "@/models";
 
 export type RootState = {
-    config: Config
+    consoleEvents: ConsoleEvent[]
 };
 
 export const useShellStore = defineStore('shell', {
     state: () =>
         ({
-            config: configData,
+            consoleEvents: [],
         } as RootState),
 
     actions: {
