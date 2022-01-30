@@ -14,4 +14,11 @@ export default defineConfig({
       port: 8080,
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/assets/style/main.scss";`
+      }
+    }
+  },
 })
