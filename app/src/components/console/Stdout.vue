@@ -1,5 +1,5 @@
 <template>
-  <div class="konsole-stdout">
+  <div class="console-stdout">
     <span class="timestamp">{{ message.time }}</span>
     <span class="prompt">{{ prompt }}</span>
     <span :class="{ response: this.message.response }">{{ content }}</span>
@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { ConsoleMessage } from '@/models'
 
 export default defineComponent({
   name: "Stdout",
@@ -34,8 +35,11 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/style/variables';
 
-.konsole-stdout {
+.console-stdout {
   display: flex;
+  font-size: 1.75rem;
+  font-weight: bolder;
+  letter-spacing: 1px;
 }
 
 .timestamp {
