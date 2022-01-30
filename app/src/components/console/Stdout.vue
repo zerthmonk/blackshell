@@ -51,7 +51,7 @@ export default defineComponent({
   margin-right: .75rem;
 }
 .response {
-  color: darken($main-green, 10%)
+  color: darken(rgba($color-main, .8), 10%)
 }
 
 </style>

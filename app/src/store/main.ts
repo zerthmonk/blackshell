@@ -34,12 +34,20 @@ export const useMainStore = defineStore('main', {
             colorTheme: configData.colorTheme || 'default',
             labels: configData.labels || defaultLabels,
             users: [
-                { username: 'Toshiro Boon', hackable: true, },
-                { username: 'Adam Jensen', hackable: false },
-                { username: 'Johnny Flatline', hackable: false }
+                { username: 'Toshiro Boon', hackable: true, hacked: false, root: false, password: 'letmein' },
+                { username: 'Adam Jensen', hackable: false, hacked: false, root: true, password: '1K0q_#sz' },
+                { username: 'Johnny Flatline', hackable: true, hacked: false, root: false, password: 'dixi3fl4t' }
             ]
         } as RootState),
 
     actions: {
+        setHacked(index) {
+            const user = this.users[index]
+            if (user.root) {
+                this.users.forEach(u => u.hacked = true)
+            } else {
+                user.hacked = true;
+            }
+        }
     },
 });

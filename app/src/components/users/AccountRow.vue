@@ -1,7 +1,7 @@
 <template>
-  <div class="account-row">
+  <div class="account-row" :class="{hacked: account.hacked}">
     <div class="textbar__main">
-      <span><a class="prompt"></a>{{username}}</span></div>
+      <span><a class="prompt"></a>{{account.username}}</span></div>
   </div>
 </template>
 
@@ -13,9 +13,7 @@ export default defineComponent({
   emits: ['accountSelect'],
 
   props: {
-    username: {
-      type: String,
-    }
+    account: {}
   }
 })
 </script>
@@ -24,21 +22,35 @@ export default defineComponent({
 .account-row {
   display: flex;
   max-width: 320px;
-  border: 1px solid $main-opaque;
+  border: 1px solid rgba($color-white, .3);
   padding: 1.75rem;
   margin: .25rem;
   margin-bottom: .75rem;
   justify-content: space-between;
   align-items: center;
   font-size: 1.5rem;
+  cursor: pointer;
 
   &:hover {
     border: 1px solid white;
-    background: rgba(255, 255,255, 0.15);
+    background: rgba($color-main, .05);
     span {
       animation: pulsebg 1s infinite;
     }
   }
+}
 
+.hacked {
+  filter: hue(red);
+  color: $color-danger;
+  border: 1px dotted rgba($color-danger, .8);
+
+  &:hover {
+    background: rgba(lighten($color-danger, 15%), .05);
+    border: 1px dotted rgba($color-danger, 1);
+    span {
+      animation: pulsebg 1s infinite;
+    }
+  }
 }
 </style>

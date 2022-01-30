@@ -121,7 +121,7 @@ $stdin-bottom-margin: .5rem;
     height: $console-font-size;
     font-size: $console-font-size;
     font-family: $main-font, monospace;
-    color: $main-green;
+    color: rgba($color-main, .8);
     background: none;
     border: 0;
     border-radius: 0;
