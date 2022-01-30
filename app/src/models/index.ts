@@ -21,8 +21,15 @@ interface Config {
     modes: Record<string, Mode>,
 }
 
+interface ConsoleMessage {
+    content: string,
+    response?: boolean,
+    time?: number
+}
+
 export {
     Menu,
     Mode,
-    Config
+    Config,
+    ConsoleMessage
 }
