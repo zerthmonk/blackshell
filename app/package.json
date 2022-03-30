@@ -9,6 +9,7 @@
   "dependencies": {
     "@vueuse/core": "^7.5.5",
     "pinia": "^2.0.9",
+    "pinia-plugin-persist": "^0.0.93",
     "vue": "^3.2.25"
   },
   "devDependencies": {

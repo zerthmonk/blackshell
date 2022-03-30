@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrapper">
-    <p class="blackshell-label">{{userHeader}}</p>
+    <p class="blackshell-hdr">{{userHeader}}</p>
     <div class="users">
       <div class="user-list">
         <AccountRow v-for="(account, index) in userList"
@@ -57,7 +57,7 @@ export default defineComponent({
 
   methods: {
     setSelectedAccount(index) {
-      this.selectedAccount = this.userList[index]
+      this.selectedAccount = this.selectedAccount === this.userList[index] ? {} : this.userList[index]
     },
     closeAccount() {
       this.selectedAccount = {}
@@ -68,8 +68,8 @@ export default defineComponent({
         this.mainStore.setHacked(idx)
       }
     },
-    loginAccount() {
-      console.log('login')
+    loginAccount(data) {
+      this.mainStore.checkPassword(...data)
     }
   }
 
@@ -84,21 +84,18 @@ export default defineComponent({
   flex-wrap: wrap;
   justify-content: space-between;
   padding-left: 4rem;
-  padding-top: 1rem;
-}
-
-.blackshell-label {
-  width: 100%;
+  padding-top: 2rem;
 }
 
 .users {
   min-width: 400px;
   padding-right: 1rem;
-  border-right: 1px solid rgba($color-white, .3);
+  border-left: 1px solid rgba($color-white, .3);
 }
 
 .user-list {
   padding: 1rem;
+  padding-left: 2rem;
 }
 
 .account {

@@ -22,12 +22,6 @@ a:hover {
   color: $white;
 }
 
-a::before {
-  display: inline;
-  content: ">";
-  padding-right: .2rem;
-}
-
 .page {
   padding: 1rem 2rem 1rem 2rem;
 }
@@ -61,6 +55,12 @@ a::before {
 
 .screen-wrapper {
   border: .3rem solid $black;
+}
+
+.blackshell-hdr {
+  width: 100%;
+  font-size: 2rem;
+  text-transform: uppercase;
 }
 
 .hdr-text {

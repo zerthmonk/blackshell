@@ -25,7 +25,7 @@ export default {
 
   computed: {
     message() {
-      return this.mainStore.poweroff_text
+      return this.mainStore.labels.poweroff
     },
     backgroundUrl() {
       return {

@@ -42,7 +42,7 @@ export default defineComponent({
 
 .hacked {
   filter: hue(red);
-  color: $color-danger;
+  color: lighten($color-danger, 15%);
   border: 1px dotted rgba($color-danger, .8);
 
   &:hover {

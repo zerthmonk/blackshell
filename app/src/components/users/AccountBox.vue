@@ -1,8 +1,9 @@
 <template>
   <div class="account-box" :class="{hacked: account.hacked}">
-    <div class="account-controls account-controls_close">
-      <a class="account-button" ref="close" @click="$emit('closeAccount')">{{labels.close}}</a>
-    </div>
+    <div class="account-title">{{title}}<span>---</span></div>
+<!--    <div class="account-controls account-controls_close">-->
+<!--      <a class="account-button" ref="close" @click="$emit('closeAccount')">{{labels.close}}</a>-->
+<!--    </div>-->
     <div class="account-form">
       <div class="account-header">
         <div class="header__image" :style="userImage"></div>
@@ -10,15 +11,15 @@
           <label class="info__label" for="username">{{labels.boxheader}}</label>
           <div id="username" class="info__username">{{account.username}}</div>
           <label class="info__label" for="account-login">{{labels.password}}</label>
-          <input id="account-login" type="password" value="*****">
+          <input id="account-login" type="password" v-model="inputPassword">
         </div>
       </div>
     </div>
     <div class="account-controls">
       <a v-if="!account.hacked"
          class="account-button" ref="additional" @click="$emit('hackAccount')">{{labels.hack}}</a>
-      <span class="compromised" v-if="account.hacked">{{labels.compromised}}</span>
-      <a class="account-button" ref="login" @click="$emit('loginAccount')">{{labels.login}}</a>
+      <span class="compromised" v-if="account.hacked">{{labels.compromised}} : {{account.password}}</span>
+      <a class="account-button" ref="login" @click="login()">{{labels.login}}</a>
     </div>
   </div>
 </template>
@@ -36,6 +37,10 @@ export default {
     account: {}
   },
 
+  data: () => ({
+    "inputPassword": "*******"
+  }),
+
   computed: {
     labels() {
       if (this.mainStore.config.lang === 'ru') {
@@ -45,7 +50,7 @@ export default {
           hack: 'режим отладки',
           login: 'подтвердить',
           close: 'закрыть',
-          compromised: '...временный доступ...'
+          compromised: 'доступ разрешен'
         }
       } else {
         return {
@@ -54,14 +59,27 @@ export default {
           hack: 'recovery mode',
           login: 'confirm password',
           close: 'close',
-          compromised: '...temporary access...'
+          compromised: 'access granted'
         }
       }
     },
     userImage() {
       return {backgroundImage: `url(${networkImage})`, opacity: "0.2"}
+    },
+    title() {
+      const hacked = `/// ${this.account.username} / ${this.labels.compromised} ///`
+      const normal = `/// ${this.labels.boxheader} / ${this.account.username} ///`
+      const title = this.account.hacked ? hacked : normal
+      return title.toLowerCase()
+    }
+  },
+
+  methods: {
+    login() {
+      this.$emit("loginAccount", [this.account.username, this.inputPassword])
     }
   }
+
 }
 </script>
 
@@ -70,6 +88,14 @@ export default {
   border: 1px dashed rgba($color-white, .3);
   background-color: rgba(255,255,255,.15);
   padding: 3rem 1.75rem;
+}
+
+.account-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .25rem;
+  line-height: 1.25rem;
+  font-size: 1rem;
 }
 
 .account-header {
@@ -159,13 +185,18 @@ input {
     border: 1px dotted $color-white;
   }
   .account-button, .compromised {
-    color: $color-danger;
+    color: lighten($color-danger, 20%);
+  }
+  .account-title {
+    color: lighten($color-danger, 20%);
   }
 }
 
 .compromised {
   color: $color-main;
   margin-left: 2rem;
+  font-size: 1.15rem;
+  line-height: 1.15rem;
 }
 
 </style>

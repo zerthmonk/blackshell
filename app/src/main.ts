@@ -1,9 +1,11 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { useStore } from '@/store'
+import piniaPersist from 'pinia-plugin-persist'
 import App from './App.vue'
 
+const pinia = createPinia()
+pinia.use(piniaPersist)
 
 createApp(App)
-    .use(createPinia())
+    .use(pinia)
     .mount("#app")

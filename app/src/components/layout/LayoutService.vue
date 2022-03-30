@@ -1,8 +1,12 @@
 <template>
   <div class="container">
-    <header></header>
+    <header>
+      <slot name="header"></slot>
+    </header>
     <router-view/>
-    <footer></footer>
+    <footer>
+      <slot name="footer"></slot>
+    </footer>
   </div>
 </template>
 
@@ -13,5 +17,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/style/main.scss';
+@import '@/assets/style/main.scss';
 </style>

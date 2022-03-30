@@ -16,7 +16,6 @@ import BlockedScreen from "@/screen/BlockedScreen.vue"
 
 export default defineComponent({
   name: 'terminal',
-
   mixins: [mainStoreMixin],
 
   components: {
@@ -32,14 +31,20 @@ export default defineComponent({
       "login": LoginScreen,
       "blocked": BlockedScreen,
       "off": OffScreen
-    }
+    },
+    "currentPage": "",
+    "defaultScreen": "login"
   }),
 
-  computed: {
-    currentPage() {
-      const key = this.mainStore.status || "login"
-      console.log(`Loading screen: '${key}'`)
-      return this.screens[key]
+  methods: {
+    setCurrentPage() {
+      let status = this.mainStore.status || this.defaultScreen
+      if (this.mainStore.status === 'login' && this.mainStore.activeUser) {
+        status = 'menu'
+      }
+      this.currentPage = this.screens[status] || this.screens[this.defaultScreen]
+      console.log(`setting current page ${status}`)
+      return this.currentPage
     }
   },
 
@@ -48,6 +53,9 @@ export default defineComponent({
     if (config.standalone) {
       console.log(`Blackshell working. Standalone: ${config.standalone} Debug: ${config.debug}`)
     }
+    this.mainStore.status = this.mainStore.status ? this.mainStore.status : this.defaultScreen
+    this.setCurrentPage()
+    this.mainStore.$subscribe(() => this.setCurrentPage())
   },
 })
 
