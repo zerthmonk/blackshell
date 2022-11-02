@@ -1,0 +1,36 @@
+/* SCSS */
+@import './variables';
+
+$caret-color: lighten(rgba($color-main, .8), 10%);
+
+.vue-typer {
+
+  .custom.char {
+    color: $caret-color;
+  }
+
+}
+
+.typewriter {
+  color: #fff;
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid $caret-color;
+  white-space: nowrap; /* Keeps the content on a single line */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation:
+          typing 3.5s steps(30, end),
+          blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: $caret-color }
+}
