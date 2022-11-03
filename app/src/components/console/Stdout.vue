@@ -9,8 +9,7 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
 
-interface StdoutProps {
-  // userid: string;
+export interface StdoutProps {
   content: string;
   timestamp: number;
   isResponse?: boolean;
