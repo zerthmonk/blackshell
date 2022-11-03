@@ -1,83 +1,68 @@
 <template>
 
-  <div class="bg" :style=filter>
-    <div class="bg__layer bg__svg" :style=bevelUrl></div>
-    <div v-if="stripeEffect" class="bg__layer bg__layer_effect-stripe"></div>
-    <div class="bg__layer bg__layer_textured" :style=backgroundUrl></div>
+  <div class="bg" :style=filterStyle>
+    <div class="bg__layer bg__svg" :style=bevelStyle></div>
+    <div class="bg__layer bg__layer_textured" :style=backgroundStyle></div>
 
     <audio
-      ref="soundBg"
-      :src="audioUrl"
-      preload
-      loop
-      id="audio"
-      muted
+      ref="soundBackground"
+      :src="bgAudio"
+      :muted="muted"
+      autoplay="true"
+      preload="true"
+      loop="true"
     ></audio>
 
   </div>
 
 </template>
 
-<script lang="ts">
-import {defineComponent} from "vue"
+<script setup lang="ts">
+import {defineProps, withDefaults, computed, onMounted, ref} from "vue"
 import bevelSvg from '~/assets/img/bevel.min.svg'
 import background from '~/assets/img/bg.png'
 import bgAudio from '~/assets/sound/bg.ogg'
 
-interface backgroundTheme {
+interface BackgroundTheme {
   filter: string;
   opacity: string;
 }
 
-const themes = {
-  // hue, opacity, brightness
-  'default': [149, 80, 80],
-  'red': [190, 85, 120],
-  'green': [315, 75, 200]
+interface BackgroundProps {
+  theme?: string;
+  muted?: boolean;
 }
 
-export default defineComponent({
+const filters: Record<string, [number, number, number]> = {
+  // hue, opacity, brightness
+  'default': [149, 80, 80],
+  'danger': [190, 85, 120],
+  'normal': [315, 75, 200]
+}
 
-  props: {
-    theme: {
-      type: String,
-      default: 'green'
-    },
-    muted: {
-      type: Boolean,
-      default: false
-    },
-    stripeEffect: {
-      type: Boolean,
-      default: true
-    }
-  },
-
-  computed: {
-    bevelUrl() {
-      return {backgroundImage: `url(${bevelSvg})`}
-    },
-    backgroundUrl() {
-      return {backgroundImage: `url(${background})`}
-    },
-    audioUrl() {
-      return bgAudio
-    },
-    filter(): backgroundTheme {
-      const [hue, opacity, brightness] = [...themes[this.theme]]
-      return {
-        filter: `hue-rotate(${hue}deg) brightness(${brightness}%)`,
-        opacity: `${opacity}%`,
-      };
-    }
-  },
-
-  async mounted() {
-    // if (!this.muted) this.$refs.soundBg.play(); // fix autoplay issue
-    [this.hue, this.opacity, this.brightness] = [...themes[this.theme]]
-  }
-
+const props: Required<BackgroundProps> = withDefaults(defineProps<BackgroundProps>(), {
+  theme: 'default',
+  muted: true
 })
+const soundBackground = ref(null);
+
+const bevelStyle = {backgroundImage: `url(${bevelSvg})`};
+const backgroundStyle = {backgroundImage: `url(${background})`};
+
+const filterStyle: BackgroundTheme = computed(() => {
+  const [hue, opacity, brightness] = [...filters[props.theme]];
+  return {
+    filter: `hue-rotate(${hue}deg) brightness(${brightness}%)`,
+    opacity: `${opacity}%`,
+  };
+})
+
+onMounted(() => {
+  if (!props.muted) {
+    // soundBackground.value.play(); // fix autoplay issue
+  }
+})
+
 </script>
 
 <style lang="scss">
