@@ -1,9 +1,10 @@
 <template>
-  <ConsoleScreen/>
+  <GridGameScreen/>
 </template>
 
 <script setup lang="ts">
 import ConsoleScreen from "~/pages/ConsoleScreen.vue";
+import GridGameScreen from "./pages/GridGameScreen.vue";
 </script>
 
 <style lang="scss">

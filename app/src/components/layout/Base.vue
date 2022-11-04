@@ -1,36 +1,46 @@
 <template>
-  <div :class="$style.root">
+  <div class="layout" :class="rootAlign">
     <slot name="header"></slot>
     <slot name="main"></slot>
     <slot name="footer"></slot>
-    <slot name="background" :class="$style.background"></slot>
   </div>
+  <slot name="background"></slot>
 </template>
 
-<style module lang="scss">
-.root {
+<script setup lang="ts">
+import {computed, useSlots} from "vue";
+
+const slots = useSlots();
+const rootAlign = computed(() => {
+  const direction = slots?.header ? 'start' : 'end';
+  return `layout_aligned-${direction}`;
+})
+
+</script>
+
+<style scoped lang="scss">
+.layout {
   position: relative;
   display: grid;
-  align-content: end;
-  height: 100vh;
-  width: 100vw;
+  grid: 1fr 4fr 1fr / 1fr;
+  height: fit-content;
   z-index: 1;
   padding: 1.5rem;
+  gap: .5rem;
   box-sizing: border-box;
 }
 
-.background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+.layout_aligned-end {
+  align-content: end;
+}
+
+.layout_align-start {
+  align-content: end;
 }
 
 @media only screen and (max-width: 768px) {
-  .root {
-    padding: 1.25rem .5rem;
+  .layout {
+    padding: 1.25rem .75rem;
   }
 }
 </style>

@@ -70,18 +70,29 @@ onMounted(() => {
 
 .bg, .bg__layer {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  z-index: -100;
+  z-index: 0;
+  transform: scale(100.8%); // subtlier bevels
 }
 
 .bg__layer_textured {
   opacity: 0.07;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@media only screen and (max-width: 768px) {
+  .bg {
+    // simple & dirty 'cuz no accessibility options for background exists
+    transform: scaleY(102%) scaleX(99%);
+    opacity: .3 !important;
+  }
 }
 
 </style>
