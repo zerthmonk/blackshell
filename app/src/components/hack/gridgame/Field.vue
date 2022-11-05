@@ -42,8 +42,8 @@ interface FieldState {
 const props = defineProps({
   size: {
     type: Number,
-    default: 8,
-    validator: (prop: Number) => prop > 5 && prop <= 8
+    default: 5,
+    validator: (prop: Number) => prop > 5 && prop < 8
   }
 })
 
