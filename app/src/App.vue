@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import ConsoleScreen from "~/pages/ConsoleScreen.vue";
-import GridGameScreen from "./pages/GridGameScreen.vue";
+import ConsoleScreen from "@/pages/ConsoleScreen.vue";
+import GridGameScreen from "@/pages/GridGameScreen.vue";
 </script>
 
 <style lang="scss">
