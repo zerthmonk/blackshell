@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "~": path.resolve(__dirname, "src"),
+      "@": path.resolve(__dirname)
     },
   },
   server: {
@@ -17,7 +18,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "~/assets/style/main.scss";`
+        additionalData: `@import "~/public/assets/style/main.scss";`
       }
     }
   },

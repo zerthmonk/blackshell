@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '~/components/layout/Base.vue';
-import Background from "~/components/base/Background.vue";
-import Console from '~/components/console/Console.vue';
+import Layout from '@/components/layout/Base.vue';
+import Background from "@/components/base/Background.vue";
+import Console from '@/components/console/Console.vue';
 
 </script>
 
