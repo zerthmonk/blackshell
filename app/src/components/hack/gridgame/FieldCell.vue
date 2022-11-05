@@ -1,5 +1,6 @@
 <template>
   <Cell
+    :class="{pointed: props.hinted, disabled: disabled}"
     :isHighlighted="highlighted"
     :isSelected="selected"
     :isHinted="props.hinted"
@@ -24,13 +25,25 @@ const props = defineProps<cellProps>();
 const emit = defineEmits(['select']);
 const highlighted = ref(false);
 const selected = computed(() => props.selected || false);
+const disabled = computed(() => props.selected && props.hinted);
 
 function handleClick() {
   emit('select');
 }
 
-function handleHover(value: boolean) {
+function handleHover(value: boolean): void {
   highlighted.value = value;
 }
 
 </script>
+<style scoped lang="scss">
+.pointed {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: auto;
+  pointer-events: none;
+  filter: blur(2px);
+}
+</style>

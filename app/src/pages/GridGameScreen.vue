@@ -65,17 +65,15 @@ import Field from "~/components/hack/gridgame/Field.vue";
   filter: blur(3px) contrast(5%);
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 600px) {
   .dotted {
     padding: .5rem;
   }
 
   .gridgame__field, .gridgame__backtrace {
-    font-size: 1rem;
+    width: 100%;
+    font-size: .75rem;
     justify-self: center;
-    .gridgame__cell {
-      padding: .5rem;
-    }
   }
 }
 </style>

@@ -87,7 +87,7 @@ onMounted(() => {
   background-size: cover;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 480px) {
   .bg {
     // simple & dirty 'cuz no accessibility options for background exists
     transform: scaleY(102%) scaleX(99%);

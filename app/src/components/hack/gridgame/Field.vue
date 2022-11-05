@@ -5,7 +5,7 @@
        @keyup={handleControls}
        tabindex="1"
        >
-       <FieldCell v-for="cell of state.field" 
+       <FieldCell v-for="cell of state.field"
           class="grid-field__cell"
           :hexValue="cell.hex"
           :selected="cell.selected"
@@ -15,17 +15,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, withDefaults, computed, onMounted, reactive, watch } from "vue";
+import { defineProps, computed, onMounted, reactive, watch } from "vue";
+import { RESULTS, MOVES } from "/config/constants";
+import { generateField } from './game.utilities';
 import FieldCell from './FieldCell.vue';
 
-import { RESULTS, MOVES } from "/config/constants.ts";
-import { generateField } from './game.utilities.ts';
-
 type MoveMode = MOVES.AXIS_X | MOVES.AXIS_Y;
-
-interface FieldProps {
-  size?: number;
-}
 
 interface CellData {
   row: number;
@@ -42,9 +37,17 @@ interface FieldState {
   allowedToSelect: number;
 }
 
-const props = withDefaults(defineProps<FieldProps>(), {
-  size: 6,
+// reactive values and constants
+
+const props = defineProps({
+  size: {
+    type: Number,
+    default: 8,
+    validator: (prop: Number) => prop > 5 && prop <= 8
+  }
 })
+
+const fieldStyle = {grid: `repeat(${props.size}, auto) / repeat(${props.size}, auto)`};
 
 const state: FieldState = reactive({
   field: getField(generateField(props.size, props.size)),
@@ -53,8 +56,10 @@ const state: FieldState = reactive({
   allowedToSelect: 0 
 })
 
+watch(() => state.mode, setHinted)
 const result = computed(() => null);
-const fieldStyle = {grid: `repeat(${props.size}, auto) / repeat(${props.size}, auto)`};
+
+// methods
 
 function getField(field: string[][]) {
   return field.reduce((accum: CellData[][], arr: string[], idxRow: number) => {
@@ -98,7 +103,7 @@ function setHinted() {
   state.field.forEach(cell => cell.hinted = cell[attr] === state.allowedToSelect);
 }
 
-watch(() => state.mode, setHinted)
+// lifecycle hooks
 
 onMounted(() => {
   setHinted();
@@ -112,12 +117,23 @@ onMounted(() => {
 }
 
 .grid-field__cell {
-  cursor: pointer;
-  padding: 1rem;
+  padding: 1.25rem;
 }
 
 .ignored {
   pointer-events: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .grid-field__cell {
+    padding: .75rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .grid-field__cell {
+    padding: .5rem;
+  }
 }
 
 </style>
