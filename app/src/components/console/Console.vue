@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, onMounted, watch } from 'vue';
-import Stdout from "~/components/console/Stdout.vue";
+import Stdout from "@/components/console/Stdout.vue";
 
 const input = ref(null);
 const history = ref(null);
@@ -56,8 +56,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/style/main.scss';
-@import '~/assets/style/typer.scss';
+@import '~/public/assets/style/main.scss';
+@import '~/public/assets/style/typer.scss';
 
 $console-font-size: 1.75rem;
 // $stdin-bottom-margin: .5rem;

@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch, defineProps, withDefaults } from "vue";
-import soundPrinting from '~/assets/sound/printing.ogg';
+import soundPrinting from '~/public/assets/sound/printing.ogg';
 
 interface propsType {
   parallel?: boolean;
