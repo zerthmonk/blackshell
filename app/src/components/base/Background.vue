@@ -19,9 +19,9 @@
 
 <script setup lang="ts">
 import {defineProps, withDefaults, computed, onMounted, ref} from "vue"
-import bevelSvg from '~/assets/img/bevel.min.svg'
-import background from '~/assets/img/bg.png'
-import bgAudio from '~/assets/sound/bg.ogg'
+import bevelSvg from '~/public/assets/img/bevel.min.svg'
+import background from '~/public/assets/img/bg.png'
+import bgAudio from '~/public/assets/sound/bg.ogg'
 
 interface BackgroundTheme {
   filter: string;
@@ -66,7 +66,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import '~/assets/style/variables';
+@import '~/public/assets/style/variables';
 
 .bg, .bg__layer {
   position: absolute;

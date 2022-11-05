@@ -7,7 +7,7 @@ import ConsoleScreen from "~/pages/ConsoleScreen.vue";
 </script>
 
 <style lang="scss">
-@import "~/assets/style/main.scss";
-@import "~/assets/style/fonts.scss";
-@import '~/assets/style/variables';
+@import "~/public/assets/style/main.scss";
+@import "~/public/assets/style/fonts.scss";
+@import '~/public/assets/style/variables';
 </style>
