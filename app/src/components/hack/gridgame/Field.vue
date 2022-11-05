@@ -16,7 +16,7 @@
 </template>
 <script setup lang="ts">
 import { defineProps, computed, onMounted, reactive, watch } from "vue";
-import { RESULTS, MOVES } from "/config/constants";
+import { RESULTS, MOVES } from "~/config/constants.ts";
 import { generateField } from './game.utilities';
 import FieldCell from './FieldCell.vue';
 
