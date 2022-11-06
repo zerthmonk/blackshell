@@ -4,7 +4,12 @@
       <h1>this is grid game</h1>
     </template>
     <template #main>
-      <Field class="gridgame__field"></Field>
+      <div class="game">
+        <Field class="field"></Field>
+        <div class="info">
+          <Buffer label="route backtraced"></Buffer>
+        </div>
+      </div>
     </template>
     <template #background>
       <Background theme="normal"/>
@@ -17,6 +22,7 @@ import { useStore } from "@/stores/gridgame";
 import Layout from "@/components/layout/Base.vue";
 import Background from "@/components/base/Background.vue";
 import Field from "@/components/hack/gridgame/Field.vue";
+import Buffer from "@/components/hack/gridgame/Buffer.vue";
 
 const store = useStore();
 store.setSize(5);
@@ -25,16 +31,26 @@ store.init();
 </script>
 
 <style scoped lang="scss">
-.gridgame__field {
-  position: relative;
-  display: grid;
-  height: fit-content;
-  width: fit-content;
-  border: 1px solid rgba(255,255,255,.15);
-  background: rgba(50,50,50,0.4);
-  padding: .2rem;
-  gap: .15rem;
-  z-index: 1;
+
+.game {
+  display: flex;
+  gap: 2rem;
+
+  .field {
+    position: relative;
+    display: grid;
+    height: fit-content;
+    width: fit-content;
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(50,50,50,0.4);
+    padding: .2rem;
+    gap: .15rem;
+    z-index: 1;
+  }
+
+  .info {
+
+  }
 }
 
 .backtrace {

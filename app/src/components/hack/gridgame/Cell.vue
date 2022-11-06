@@ -52,4 +52,8 @@ const props = defineProps<cellProps>();
 .hinted {
   background: rgba(75,75,75, .5);
 }
+
+.highlighted {
+  border: 1px solid rgba(255,255,255,.15);
+}
 </style>

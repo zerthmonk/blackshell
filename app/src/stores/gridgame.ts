@@ -20,7 +20,7 @@ export const useStore = defineStore('gridgame', {
     init() {
       if (!this.size) throw new Error(`You should use setSize(size) method first. ${rangeErrorMessage}`)
       this.selected = []
-      this.tries = 0
+      this.tries = 5 // todo: acquire from API
       this.field = generateField(this.size);
     },
 

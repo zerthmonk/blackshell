@@ -1,28 +1,51 @@
 <template>
-  <div class="trace-solution">
-    <RandomizeText>
-      <span>{{label}}</span>
-    </RandomizeText>
-    <Cell v-for="value in buffer"
-      :hexValue="value"
-      />
+  <div class="root">
+    <span>{{props.label}}</span>
+    <div class="content">
+      <Cell v-for="value in content"
+        class="cell"
+        :hexValue="value"
+        :isHighlighted="true"
+        />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {defineProps, computed} from "vue";
-import Cell from "./Cell";
+import { storeToRefs } from "pinia";
+import { defineProps, computed } from "vue";
+import { useStore } from '@/stores/gridgame';
+import Cell from "./Cell.vue";
+
+const store = useStore();
+const { selected, tries } = storeToRefs(store);
 
 interface bufferProps {
   label: string;
-  tries: number;
-  selected: string[];
 }
 
 const props = defineProps<bufferProps>();
-const buffer = computed(() => Array.from('tries').map(idx => props.selected[idx] || '--'));
+const content = computed(() => Array(tries.value + 1).fill('').map((_, idx) => selected.value[idx]?.hex || '--'));
 
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  
+  span {
+    font-size: .75rem;
+    letter-spacing: 1px;
+  }
+}
+.content {
+  display: flex;
+  gap: .5rem;
+
+  .cell {
+    padding: .5rem;
+  }
+}
 </style>
