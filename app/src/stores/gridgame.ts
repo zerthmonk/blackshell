@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { RESULTS } from '~/config/constants.ts'
-import { generateField } from '@/services/gridgame';
-import type { CellData, GridGameState } from '@/typings/modules/gridgame.ts';
+import { RESULTS } from '~/config/constants'
+import { generateField } from '@/util/gridgame';
+import type { CellData, GridGameState } from '@/typings/modules/gridgame';
 
 const [minVal, maxVal] = [5, 7];
 const rangeErrorMessage = `Value should be in range from ${minVal} to ${maxVal}`;

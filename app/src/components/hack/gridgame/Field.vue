@@ -17,9 +17,10 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { computed, onMounted, ref, watch } from "vue";
-import { RESULTS, MOVES } from "~/config/constants.ts";
-import { CellData } from "@/typings/modules/gridgame.ts";
-import { useStore } from "@/stores/gridgame.ts";
+
+import { RESULTS, MOVES } from "~/config/constants";
+import { CellData } from "@/typings/modules/gridgame";
+import { useStore } from "@/stores/gridgame";
 import FieldCell from './FieldCell.vue';
 
 const store = useStore();

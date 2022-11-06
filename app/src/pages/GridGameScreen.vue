@@ -13,10 +13,10 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from "@/stores/gridgame";
 import Layout from "@/components/layout/Base.vue";
 import Background from "@/components/base/Background.vue";
 import Field from "@/components/hack/gridgame/Field.vue";
-import { useStore } from "@/stores/gridgame.ts";
 
 const store = useStore();
 store.setSize(5);
