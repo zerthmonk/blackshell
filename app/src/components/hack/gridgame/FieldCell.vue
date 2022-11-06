@@ -44,6 +44,7 @@ function handleHover(value: boolean): void {
 .disabled {
   cursor: auto;
   pointer-events: none;
-  filter: blur(2px);
+  background: rgba(0,0,0,.1);
+  color: rgba(0,0,0,.25);
 }
 </style>

@@ -5,7 +5,7 @@
        @keyup={handleControls}
        tabindex="1"
        >
-       <FieldCell v-for="cell of state.field"
+       <FieldCell v-for="cell of field"
           class="grid-field__cell"
           :hexValue="cell.hex"
           :selected="cell.selected"
@@ -15,58 +15,24 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, computed, onMounted, reactive, watch } from "vue";
+import { storeToRefs } from "pinia";
+import { computed, onMounted, ref, watch } from "vue";
 import { RESULTS, MOVES } from "~/config/constants.ts";
-import { generateField } from './game.utilities';
+import { CellData } from "@/typings/modules/gridgame.ts";
+import { useStore } from "@/stores/gridgame.ts";
 import FieldCell from './FieldCell.vue';
 
-type MoveMode = MOVES.AXIS_X | MOVES.AXIS_Y;
+const store = useStore();
+const { field, size, selected } = storeToRefs(store);
 
-interface CellData {
-  row: number;
-  col: number;
-  hex: string;
-  selected?: boolean;
-  hinted?: boolean;
-}
+const mode = ref(MOVES.AXIS_Y);
+const allowedToSelect = ref(0);
+const fieldStyle = {grid: `repeat(${size.value}, auto) / repeat(${size.value}, auto)`};
 
-interface FieldState {
-  field: CellData[];
-  mode: MoveMode;
-  selectedCells: CellData[];
-  allowedToSelect: number;
-}
-
-// reactive values and constants
-
-const props = defineProps({
-  size: {
-    type: Number,
-    default: 5,
-    validator: (prop: Number) => prop > 5 && prop < 8
-  }
-})
-
-const fieldStyle = {grid: `repeat(${props.size}, auto) / repeat(${props.size}, auto)`};
-
-const state: FieldState = reactive({
-  field: getField(generateField(props.size, props.size)),
-  selectedCells: [],
-  mode: MOVES.AXIS_Y,
-  allowedToSelect: 0 
-})
-
-watch(() => state.mode, setHinted)
+watch(() => mode.value, setHinted);
 const result = computed(() => null);
 
 // methods
-
-function getField(field: string[][]) {
-  return field.reduce((accum: CellData[][], arr: string[], idxRow: number) => {
-    const mappedRow: CellData[] = arr.map((hexValue, idxCol) => ({row: idxRow, col: idxCol, hex: hexValue}));
-    return [...accum, mappedRow];
-  }, []).flat();
-}
 
 function handleControls(key: KeyboardEvent) {
   console.log(key);
@@ -74,33 +40,33 @@ function handleControls(key: KeyboardEvent) {
 
 function isAllowed(cell: CellData) {
   return (
-    state.mode === MOVES.AXIS_Y && cell.col === state.allowedToSelect
-    || state.mode === MOVES.AXIS_X && cell.row === state.allowedToSelect
+    mode.value === MOVES.AXIS_Y && cell.col === allowedToSelect.value
+    || mode.value === MOVES.AXIS_X && cell.row === allowedToSelect.value
   )
 }
 
 function handleCellSelect(cell: CellData) {
-  if (state.selectedCells.includes(cell)) return;
-
   const setSelected = () => {
-    cell.selected = true;
-    state.selectedCells.push(cell);
+    store.addSelected(cell);
+    if (selected.value.includes(cell)) {
+      cell.selected = true;
+    }
   }
 
-  if (state.mode === MOVES.AXIS_X && isAllowed(cell)) {
-    state.mode = MOVES.AXIS_Y;
-    state.allowedToSelect = cell.col;
+  if (mode.value === MOVES.AXIS_X && isAllowed(cell)) {
+    mode.value = MOVES.AXIS_Y;
+    allowedToSelect.value = cell.col;
     setSelected();
-  } else if (state.mode === MOVES.AXIS_Y && isAllowed(cell)) {
-    state.mode = MOVES.AXIS_X;
-    state.allowedToSelect = cell.row;
+  } else if (mode.value === MOVES.AXIS_Y && isAllowed(cell)) {
+    mode.value = MOVES.AXIS_X;
+    allowedToSelect.value = cell.row;
     setSelected();
   }
 }
 
 function setHinted() {
-  const attr = state.mode === MOVES.AXIS_X ? 'row' : 'col';
-  state.field.forEach(cell => cell.hinted = cell[attr] === state.allowedToSelect);
+  const attr = mode.value === MOVES.AXIS_X ? 'row' : 'col';
+  field.value.forEach((cell: CellData) => cell.hinted = cell[attr] === allowedToSelect.value);
 }
 
 // lifecycle hooks

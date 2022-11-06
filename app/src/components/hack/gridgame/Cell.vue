@@ -45,7 +45,7 @@ const props = defineProps<cellProps>();
 }
 
 .selected {
-  border: 1px solid rgba(255,255,255,.3);
+  border: 1px dotted rgba(155,155,155,.5);
   background: rgba(150, 150, 150, .5);
 }
 

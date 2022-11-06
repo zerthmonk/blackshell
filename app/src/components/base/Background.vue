@@ -1,8 +1,8 @@
 <template>
 
-  <div class="bg" :style=filterStyle>
-    <div class="bg__layer bg__svg" :style=bevelStyle></div>
-    <div class="bg__layer bg__layer_textured" :style=backgroundStyle></div>
+  <div class="bg-layer" :style=filterStyle>
+    <div class="bg-layer" :style=bevelStyle></div>
+    <div class="bg-layer textured" :style=backgroundStyle></div>
 
     <audio
       ref="soundBackground"
@@ -65,10 +65,10 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '~/public/assets/style/variables';
 
-.bg, .bg__layer {
+.bg-layer {
   position: absolute;
   top: 0;
   left: 0;
@@ -81,14 +81,14 @@ onMounted(() => {
   transform: scale(100.8%); // subtlier bevels
 }
 
-.bg__layer_textured {
+.textured {
   opacity: 0.07;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 @media only screen and (max-width: 480px) {
-  .bg {
+  .bg-layer {
     // simple & dirty 'cuz no accessibility options for background exists
     transform: scaleY(102%) scaleX(99%);
     opacity: .3 !important;

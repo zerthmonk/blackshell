@@ -9,3 +9,5 @@ export const MOVES = {
   AXIS_Y: 'axisY',
   AXIS_X: 'axisX'
 } as const;
+
+export const gridSize = 5;
