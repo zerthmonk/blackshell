@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { RESULTS } from '~/config/constants'
+import { RESULTS, MOVES } from '~/config/constants'
 import { generateField } from '@/util/gridgame';
-import type { CellData, GridGameState } from '@/typings/modules/gridgame';
+import { CellData, GridGameState, MoveModeType } from '@/typings/modules/gridgame';
 
 const [minVal, maxVal] = [5, 7];
 const rangeErrorMessage = `Value should be in range from ${minVal} to ${maxVal}`;
@@ -12,20 +12,33 @@ export const useStore = defineStore('gridgame', {
     step: 0,
     size: 0,
     field: [],
-    selected: [],
-    result: RESULTS.NONE
+    result: RESULTS.NONE,
+    hintMode: false,
+    moveMode: MOVES.AXIS_Y,
+    currentPos: 0,
   }),
 
-  actions: {
-    init() {
-      if (!this.size) throw new Error(`You should use setSize(size) method first. ${rangeErrorMessage}`)
-      this.selected = []
-      this.tries = 5 // todo: acquire from API
-      this.field = generateField(this.size);
+  getters: {
+    getSelected(): CellData[] {
+      return this.field.filter(cell => cell.selected);
     },
+    getSelectableX() {
+      return (mode: MoveModeType, pos: number, cell: CellData): boolean => {
+        return mode === MOVES.AXIS_X && cell.row === pos;
+      }
+    },
+    getSelectableY() {
+      return (mode: MoveModeType, pos: number, cell: CellData): boolean => {
+        return mode === MOVES.AXIS_Y && cell.col === pos;
+      }
+    }
+  },
 
-    setField(value: CellData[]) {
-      this.field = value;
+  actions: {
+    init({size, tries}) {
+      this.setSize(size);
+      this.tries = tries; // todo: acquire from API
+      this.field = generateField(this.size).flat();
     },
 
     setSize(value: number) {
@@ -36,9 +49,19 @@ export const useStore = defineStore('gridgame', {
     },
 
     addSelected(value: CellData) {
-      if (this.selected.includes(value)) return;
+      if (this.getSelected.includes(value)) return;
+
+      if (this.getSelectableX(this.moveMode, this.currentPos, value)) {
+        this.moveMode = MOVES.AXIS_Y;
+        this.currentPos = value.col;
+      } else if (this.getSelectableY(this.moveMode, this.currentPos, value)) {
+        this.moveMode = MOVES.AXIS_X;
+        this.currentPos = value.row;
+      }
+
       this.increaseTriesCount();
-      this.selected.push(value);
+      value.selected = true;
+      this.setHinted();
     },
 
     increaseTriesCount() {
@@ -46,6 +69,25 @@ export const useStore = defineStore('gridgame', {
         this.result = RESULTS.FAIL
       } else {
         this.step++
+      }
+    },
+
+    toggleHintMode(value?: boolean) {
+      this.hintMode = value || !this.hintMode;      
+    },
+
+    setHinted() {
+      this.field.forEach(cell => {
+        cell.hinted = this.getSelectableX(this.moveMode, this.currentPos, cell)
+                      || this.getSelectableY(this.moveMode, this.currentPos, cell)
+      })
+    },
+
+    setHighlighted(hex: string, value: boolean) {
+      if (value === true) {
+        this.field.forEach(cell => cell.hinted = cell.hex === hex);
+      } else {
+        this.setHinted();
       }
     }
   }

@@ -24,14 +24,9 @@ import { useStore } from "@/stores/gridgame";
 import FieldCell from './FieldCell.vue';
 
 const store = useStore();
-const { field, size, selected } = storeToRefs(store);
-
-const mode = ref(MOVES.AXIS_Y);
-const allowedToSelect = ref(0);
+const { field, size, result, moveMode, hintMode } = storeToRefs(store);
+const { addSelected, setHinted } = store;
 const fieldStyle = {grid: `repeat(${size.value}, auto) / repeat(${size.value}, auto)`};
-
-watch(() => mode.value, setHinted);
-const result = computed(() => null);
 
 // methods
 
@@ -39,42 +34,13 @@ function handleControls(key: KeyboardEvent) {
   console.log(key);
 }
 
-function isAllowed(cell: CellData) {
-  return (
-    mode.value === MOVES.AXIS_Y && cell.col === allowedToSelect.value
-    || mode.value === MOVES.AXIS_X && cell.row === allowedToSelect.value
-  )
-}
-
 function handleCellSelect(cell: CellData) {
-  const setSelected = () => {
-    store.addSelected(cell);
-    if (selected.value.includes(cell)) {
-      cell.selected = true;
-    }
-  }
-
-  if (mode.value === MOVES.AXIS_X && isAllowed(cell)) {
-    mode.value = MOVES.AXIS_Y;
-    allowedToSelect.value = cell.col;
-    setSelected();
-  } else if (mode.value === MOVES.AXIS_Y && isAllowed(cell)) {
-    mode.value = MOVES.AXIS_X;
-    allowedToSelect.value = cell.row;
-    setSelected();
-  }
-}
-
-function setHinted() {
-  const attr = mode.value === MOVES.AXIS_X ? 'row' : 'col';
-  field.value.forEach((cell: CellData) => cell.hinted = cell[attr] === allowedToSelect.value);
+  addSelected(cell);
 }
 
 // lifecycle hooks
 
-onMounted(() => {
-  setHinted();
-})
+onMounted(() => setHinted())
 
 </script>
 <style scoped lang="scss">
