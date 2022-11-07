@@ -18,14 +18,14 @@ import { useStore } from '@/stores/gridgame';
 import Cell from "./Cell.vue";
 
 const store = useStore();
-const { selected, tries } = storeToRefs(store);
+const { getSelected, tries } = storeToRefs(store);
 
 interface bufferProps {
   label: string;
 }
 
 const props = defineProps<bufferProps>();
-const content = computed(() => Array(tries.value + 1).fill('').map((_, idx) => selected.value[idx]?.hex || '--'));
+const content = computed(() => Array(tries.value + 1).fill('').map((_, idx) => getSelected.value[idx]?.hex || '--'));
 
 </script>
 

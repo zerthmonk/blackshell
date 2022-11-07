@@ -25,8 +25,7 @@ import Field from "@/components/hack/gridgame/Field.vue";
 import Buffer from "@/components/hack/gridgame/Buffer.vue";
 
 const store = useStore();
-store.setSize(5);
-store.init();
+store.init({size: 5, tries: 5});
 
 </script>
 

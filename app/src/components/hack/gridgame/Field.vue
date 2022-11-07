@@ -16,9 +16,9 @@
 </template>
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { computed, onMounted, ref, watch } from "vue";
+import { onMounted } from "vue";
 
-import { RESULTS, MOVES } from "~/config/constants";
+import { RESULTS } from "~/config/constants";
 import { CellData } from "@/typings/modules/gridgame";
 import { useStore } from "@/stores/gridgame";
 import FieldCell from './FieldCell.vue';
@@ -28,8 +28,6 @@ const { field, size, result, moveMode, hintMode } = storeToRefs(store);
 const { addSelected, setHinted } = store;
 const fieldStyle = {grid: `repeat(${size.value}, auto) / repeat(${size.value}, auto)`};
 
-// methods
-
 function handleControls(key: KeyboardEvent) {
   console.log(key);
 }
@@ -37,8 +35,6 @@ function handleControls(key: KeyboardEvent) {
 function handleCellSelect(cell: CellData) {
   addSelected(cell);
 }
-
-// lifecycle hooks
 
 onMounted(() => setHinted())
 
