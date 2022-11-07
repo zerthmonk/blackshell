@@ -9,8 +9,9 @@ export interface GridGameState {
   step: 0,
   size: 0,
   field: [],
-  selected: [],
-  result: ResultType
+  // selected: [],
+  result: ResultType,
+  hintMode: boolean
 }
 
 export interface CellData {
