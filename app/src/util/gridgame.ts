@@ -1,4 +1,4 @@
-import { randomDecimal, getPrevious } from "@/util/helpers";
+import { randomDecimal, getAnother } from "@/util/helpers";
 import { CellData } from "@/typings/modules/gridgame";
 
 const mapHexArray = (height: number, width: number): string[][] => {
@@ -13,24 +13,33 @@ const generateField = (size: number): CellData[][] => {
   }, []);
 }
 
-const generateBacktrace = (field: CellData[][], pathLength: number) => {
-  // создает список координат ячеек, которые будут являться решением игры
-  const maxHeight = arr.length - 1;
-  const maxWidth = arr[0].length - 1;
-  const trace = [...Array(pathLength)].reduce((accum, _, idx) => {
-    const last = accum[0] || [randomDecimal(0, maxHeight), randomDecimal(0, maxWidth)];
-    const newVal = idx % 2 > 0 ? [getPrevious(last[0], maxHeight), last[1]] : [last[0], getPrevious(last[1], maxWidth)];
-    accum.unshift(newVal);
-    return accum;                                                           
-  }, []);
-
-  return trace.map(p => {
-    const [row, col] = [...p];
-    return arr[row][col];
-  });
+const generateBacktrace = (field: CellData[][], length: number) => {
+  let mode = true;
+  const maxSize = field.length - 1;
+  const trace = [...Array(length)].reduce((acc, _, idx) => {
+    if (idx === 0) {
+      const getIndex = () => randomDecimal(0, maxSize);
+      const start = field[getIndex()][getIndex()];
+      return [start];
+    }
+    const row = mode ? getAnother(acc[0].row, maxSize) : acc[0].row;
+    const col = mode ? acc[0].col : getAnother(acc[0].col, maxSize);
+    const nxt = field[row][col];
+    mode = !mode;
+    acc.unshift(nxt);
+    return acc;
+  }, [])
+  return trace;
 }
+
+const generateBacktraceLinked = (field: CellData[][], length: number, count: number) => {
+  const fullTrace = generateBacktrace(field, length);
+  return [...Array(count)].map((_, idx) => fullTrace.slice(idx)).sort((a, b) => a.length - b.length);
+}
+
 
 export {
   generateField,
-  // generateBacktrace
+  generateBacktrace,
+  generateBacktraceLinked
 }

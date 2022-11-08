@@ -9,15 +9,15 @@ const isArrayInArray = (arrFirst = [], arrSecond = []): boolean => {
   return firstString.includes(secondString) || secondString.includes(firstString);
 }
 
-const getPrevious = (index: number, maxVal: number): number => {
+const getAnother = (index: number, maxVal: number): number => {
   const result = randomDecimal(0, maxVal);
-  return result === index ? getPrevious(index, maxVal) : result;
+  return result === index ? getAnother(index, maxVal) : result;
 }
 
 // backtrace generation
 
 export {
   isArrayInArray,
-  getPrevious,
+  getAnother,
   randomDecimal
 }

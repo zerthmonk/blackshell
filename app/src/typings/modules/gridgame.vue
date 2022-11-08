@@ -9,7 +9,7 @@ export interface GridGameState {
   step: 0,
   size: 0,
   field: [],
-  // selected: [],
+  traces: CellData[][],
   result: ResultType,
   hintMode: boolean
 }

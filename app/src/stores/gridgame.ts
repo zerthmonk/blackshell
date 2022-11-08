@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { RESULTS, MOVES } from '~/config/constants'
-import { generateField } from '@/util/gridgame';
+import { generateField, generateBacktrace, generateBacktraceLinked } from '@/util/gridgame';
 import { CellData, GridGameState, MoveModeType } from '@/typings/modules/gridgame';
 
 const [minVal, maxVal] = [5, 7];
@@ -12,6 +12,7 @@ export const useStore = defineStore('gridgame', {
     step: 0,
     size: 0,
     field: [],
+    traces: [],
     result: RESULTS.NONE,
     hintMode: false,
     moveMode: MOVES.AXIS_Y,
@@ -38,7 +39,9 @@ export const useStore = defineStore('gridgame', {
     init({size, tries}) {
       this.setSize(size);
       this.tries = tries; // todo: acquire from API
-      this.field = generateField(this.size).flat();
+      const field = generateField(this.size);
+      this.traces = generateBacktraceLinked(field, tries - 1, 3);
+      this.field = field.flat();
     },
 
     setSize(value: number) {
