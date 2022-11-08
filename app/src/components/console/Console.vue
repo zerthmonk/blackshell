@@ -45,7 +45,6 @@ function execute() {
 }
 
 watch(() => data.history, () => {
-  console.log('watch')
   history.value.scrollTo({top: history.value.scrollHeight})
 }, {flush: 'post'})
 

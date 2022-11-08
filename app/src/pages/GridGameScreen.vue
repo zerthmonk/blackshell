@@ -6,9 +6,7 @@
     <template #main>
       <div class="game">
         <Field class="field"></Field>
-        <div class="info">
-          <Buffer label="route backtraced"></Buffer>
-        </div>
+        <Solving/>
       </div>
     </template>
     <template #background>
@@ -22,10 +20,10 @@ import { useStore } from "@/stores/gridgame";
 import Layout from "@/components/layout/Base.vue";
 import Background from "@/components/base/Background.vue";
 import Field from "@/components/hack/gridgame/Field.vue";
-import Buffer from "@/components/hack/gridgame/Buffer.vue";
+import Solving from "@/components/hack/gridgame/Solving.vue";
 
 const store = useStore();
-store.init({size: 5, tries: 5});
+store.init({size: 5, tries: 6});
 
 </script>
 
