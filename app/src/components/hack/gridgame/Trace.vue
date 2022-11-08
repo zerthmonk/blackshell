@@ -2,7 +2,7 @@
   <div class="root">
     <span>{{props.label}}</span>
     <div class="content">
-      <TraceCell v-for="value in content"
+      <component :is="component" v-for="value in content"
         class="cell"
         :hexValue="value"
         :isHighlighted="true"
@@ -12,15 +12,21 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, withDefaults, computed } from "vue";
+import Cell from "./Cell.vue";
 import TraceCell from "./TraceCell.vue";
 
 interface traceProps {
   label: string;
-  content: string[]
+  content: string[];
+  interactive?: boolean;
 }
 
-const props = defineProps<traceProps>();
+const props = withDefaults(defineProps<traceProps>(), {
+  interactive: true,
+});
+
+const component = computed(() => props.interactive ? TraceCell : Cell);
 
 </script>
 

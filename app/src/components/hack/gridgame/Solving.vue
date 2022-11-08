@@ -1,12 +1,10 @@
 <template>
   <div class="root">
     <div class="backtraces">
-      <Trace v-for="(trace, idx) in traces"
-        :label="getLabel(idx)"
-        :content="getHexes(trace)"/>
+      <Trace v-for="(trace, idx) in traces" :label="getLabel(idx)" :content="getHexes(trace)"/>
     </div>
     <div class="solution">
-      <Trace label="solution" :content="solution"/>
+      <Trace label="solution" :content="solution" :interactive="false"/>
     </div>
   </div>
 </template>
