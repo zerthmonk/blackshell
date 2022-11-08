@@ -19,7 +19,6 @@ const props = defineProps<TraceCellProps>();
 const store = useStore();
 
 function handleHover(value: boolean) {
-  console.log(props.hexValue, value)
   store.setHighlighted(props.hexValue, value);
 }
 

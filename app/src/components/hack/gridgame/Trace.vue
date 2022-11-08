@@ -2,7 +2,7 @@
   <div class="root">
     <span>{{props.label}}</span>
     <div class="content">
-      <Cell v-for="value in content"
+      <TraceCell v-for="value in content"
         class="cell"
         :hexValue="value"
         :isHighlighted="true"
@@ -12,20 +12,15 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { defineProps, computed } from "vue";
-import { useStore } from '@/stores/gridgame';
-import Cell from "./Cell.vue";
+import { defineProps } from "vue";
+import TraceCell from "./TraceCell.vue";
 
-const store = useStore();
-const { getSelected, tries } = storeToRefs(store);
-
-interface bufferProps {
+interface traceProps {
   label: string;
+  content: string[]
 }
 
-const props = defineProps<bufferProps>();
-const content = computed(() => Array(tries.value + 1).fill('').map((_, idx) => getSelected.value[idx]?.hex || '--'));
+const props = defineProps<traceProps>();
 
 </script>
 
