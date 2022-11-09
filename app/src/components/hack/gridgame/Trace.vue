@@ -1,12 +1,9 @@
 <template>
-  <div class="root">
-    <span>{{props.label}}</span>
-    <div class="content">
-      <component :is="component" v-for="value in content"
-                 class="cell"
-                 :hexValue="value"
-                 :isHighlighted="true"/>
-    </div>
+  <div class="trace">
+    <component :is="component" v-for="value in content"
+               class="cell"
+               :hexValue="value"
+               :isHighlighted="true"/>
   </div>
 </template>
 
@@ -31,23 +28,11 @@ const component = computed(() => props.interactive ? TraceCell : Cell);
 </script>
 
 <style scoped lang="scss">
-.root {
+.trace {
   display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  
-  span {
-    font-size: .75rem;
-    letter-spacing: 1px;
-  }
-}
-.content {
-  display: flex;
-  gap: .5rem;
-
-  .cell {
-    height: auto;
-  }
+  gap: .5em;
+  max-width: inherit;
+  max-height: inherit;
 }
 
 </style>

@@ -31,10 +31,6 @@ const fieldStyle = {
   grid: `repeat(${size.value}, auto) / repeat(${size.value}, auto)`,
 };
 
-// const cellStyle = {
-//   padding: ${size.value};
-// }
-
 function handleControls(key: KeyboardEvent) {
   console.log(key);
 }
@@ -48,8 +44,10 @@ onMounted(() => setHinted())
 </script>
 <style scoped lang="scss">
 .grid-field {
+  width: 100%;
   outline: none;
   text-transform: uppercase;
+  height: fit-content;
 }
 
 .ignored {

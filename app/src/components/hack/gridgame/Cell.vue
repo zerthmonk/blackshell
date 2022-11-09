@@ -25,11 +25,14 @@ const props = defineProps<cellProps>();
 <style scoped lang="scss">
 // todo: move colors to variables
 .cell {
+  height: 100%;
+  width: 100%;
   display: grid;
   text-align: center;
   justify-content: center;
   align-items: center;
   letter-spacing: 1px;
+  padding: .5em;
   aspect-ratio: 1 / 1;
   border: 1px solid transparent;
   background: rgb(15,15,15, .5);

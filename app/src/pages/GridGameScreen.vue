@@ -1,12 +1,25 @@
 <template>
   <Layout>
     <template #header>
-      <p class="page-label">this is grid game</p>
+      <div class="game-header">
+        <p class="page-label">this is grid game</p>
+      </div>
     </template>
     <template #main>
-      <div class="game">
+      <div class="main">
         <Field class="field"/>
-        <Solving class="info"/>
+        <div class="backtrace">
+          <p class="label">attack vectors</p>
+          <Traces class="traces"/>
+        </div>
+      </div>
+    </template>
+    <template #footer>
+      <div class="footer">
+        <div class="buffer">
+          <p class="label">trace></p>
+          <Solution class="solution"/>
+        </div>
       </div>
     </template>
     <template #background>
@@ -20,15 +33,21 @@ import { useStore } from "@/stores/gridgame";
 import Layout from "@/components/layout/Base.vue";
 import Background from "@/components/base/Background.vue";
 import Field from "@/components/hack/gridgame/Field.vue";
-import Solving from "@/components/hack/gridgame/Solving.vue";
+import Traces from "@/components/hack/gridgame/Traces.vue";
+import Solution from "@/components/hack/gridgame/Solution.vue";
 
 const store = useStore();
-store.init({size: 7, tries: 6});
+const size = 7;
+store.init({size: size, tries: 6});
 
 </script>
 
 <style scoped lang="scss">
 
+$maxwidth: 380px;
+.game-header {
+  height: 2rem;
+}
 .page-label {
   font-size: .875rem;
   line-height: 2rem;
@@ -36,20 +55,67 @@ store.init({size: 7, tries: 6});
   text-transform: uppercase;
 }
 
-.game {
+.main {
   display: flex;
+  overflow: hidden;
+  height: 100%;
   gap: 2rem;
+}
+.field {
+  position: relative;
+  display: grid;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(50,50,50,0.4);
+  max-width: $maxwidth;
+  padding: .2rem;
+  gap: .15rem;
+  font-size: 1.25rem;
+  z-index: 1;
+}
+.backtrace {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.traces {
+  display: flex;
+  flex-direction: column;
+}
+.label {
+  font-size: .75em;
+  letter-spacing: 1px;
+}
 
-  .field {
-    position: relative;
-    display: grid;
+.buffer {
+  max-width: $maxwidth;
+  display: flex;
+  justify-content: space-between;
+  .label {
+    align-self: center;
+  }
+}
+
+@media only screen and (max-width: $tablet) {
+  .main {
+    gap: 1rem 0;
+    flex-wrap: wrap;
+    overflow-y: auto;
     height: fit-content;
-    width: fit-content;
-    border: 1px solid rgba(255,255,255,.15);
-    background: rgba(50,50,50,0.4);
-    padding: .2rem;
-    gap: .15rem;
-    z-index: 1;
+  }
+
+  .backtrace {
+    width: 100%;
+    max-width: $maxwidth;
+    padding-bottom: 1rem;
+
+    .traces {
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .label {
+      width: 100%;
+    }
   }
 }
 

@@ -32,6 +32,9 @@ export const useStore = defineStore('gridgame', {
       return (mode: MoveModeType, pos: number, cell: CellData): boolean => {
         return mode === MOVES.AXIS_Y && cell.col === pos;
       }
+    },
+    getSolution(): string[] {
+      return Array(this.tries + 1).fill('').map((_, idx) => this.getSelected[idx]?.hex || '::')
     }
   },
 
