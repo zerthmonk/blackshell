@@ -56,9 +56,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/public/assets/style/main.scss';
-@import '~/public/assets/style/typer.scss';
-
 $console-font-size: 1.75rem;
 // $stdin-bottom-margin: .5rem;
 

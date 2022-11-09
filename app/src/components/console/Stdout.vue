@@ -30,5 +30,4 @@ const prompt = computed(() => props?.isResponse ? "<<" : ">>");
     color: darken(rgba($color-main, .8), 10%)
   }
 }
-
 </style>
