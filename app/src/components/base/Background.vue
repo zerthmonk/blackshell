@@ -66,7 +66,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.bg, .bg__layer {
+.bg-layer {
   position: absolute;
   top: 0;
   left: 0;
