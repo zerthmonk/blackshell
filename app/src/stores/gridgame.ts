@@ -34,7 +34,7 @@ export const useStore = defineStore('gridgame', {
       }
     },
     getSolution(): string[] {
-      return Array(this.tries + 1).fill('').map((_, idx) => this.getSelected[idx]?.hex || '::')
+      return Array(this.tries + 1).fill('').map((_, idx) => this.getSelected[idx]?.hex || '::');
     }
   },
 
@@ -63,6 +63,8 @@ export const useStore = defineStore('gridgame', {
       } else if (this.getSelectableY(this.moveMode, this.currentPos, value)) {
         this.moveMode = MOVES.AXIS_X;
         this.currentPos = value.row;
+      } else {
+        return;
       }
 
       this.increaseTriesCount();

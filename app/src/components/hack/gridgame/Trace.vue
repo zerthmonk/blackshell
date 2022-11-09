@@ -13,9 +13,7 @@ import TraceCell from "./TraceCell.vue";
 import Cell from "./Cell.vue";
 
 interface traceProps {
-  label: string;
   content: string[];
-  size?: number;
   interactive?: boolean;
 }
 

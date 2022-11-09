@@ -32,7 +32,7 @@ function handleClick() {
 }
 
 function handleHover(value: boolean): void {
-  highlighted.value = value;
+  if (props?.hinted) highlighted.value = value;
 }
 
 </script>

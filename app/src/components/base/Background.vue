@@ -35,9 +35,9 @@ interface BackgroundProps {
 
 const filters: Record<string, [number, number, number]> = {
   // hue, opacity, brightness
-  'default': [149, 80, 80],
+  'default': [149, 80, 75],
   'danger': [190, 85, 120],
-  'normal': [315, 75, 200]
+  'normal': [315, 75, 75]
 }
 
 const props: Required<BackgroundProps> = withDefaults(defineProps<BackgroundProps>(), {

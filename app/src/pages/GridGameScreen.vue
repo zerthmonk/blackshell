@@ -2,7 +2,7 @@
   <Layout>
     <template #header>
       <div class="game-header">
-        <p class="page-label">this is grid game</p>
+        <p class="page-label">calculating </p>
       </div>
     </template>
     <template #main>
@@ -17,7 +17,7 @@
     <template #footer>
       <div class="footer">
         <div class="buffer">
-          <p class="label">trace></p>
+          <p class="label">tracing...</p>
           <Solution class="solution"/>
         </div>
       </div>
@@ -37,7 +37,7 @@ import Traces from "@/components/hack/gridgame/Traces.vue";
 import Solution from "@/components/hack/gridgame/Solution.vue";
 
 const store = useStore();
-const size = 7;
+const size = 5;
 store.init({size: size, tries: 6});
 
 </script>
@@ -89,10 +89,8 @@ $maxwidth: 380px;
 .buffer {
   max-width: $maxwidth;
   display: flex;
-  justify-content: space-between;
-  .label {
-    align-self: center;
-  }
+  flex-direction: column;
+  gap: .5rem;
 }
 
 @media only screen and (max-width: $tablet) {
