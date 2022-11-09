@@ -66,8 +66,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import '~/public/assets/style/variables';
-
 .bg, .bg__layer {
   position: absolute;
   width: 100%;
@@ -83,5 +81,4 @@ onMounted(() => {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 </style>
