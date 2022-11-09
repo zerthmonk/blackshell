@@ -23,7 +23,6 @@ const rootAlign = computed(() => {
   position: relative;
   display: grid;
   grid: 1fr 4fr 1fr / 1fr;
-  height: fit-content;
   z-index: 1;
   padding: 1.5rem;
   gap: .5rem;
@@ -35,10 +34,10 @@ const rootAlign = computed(() => {
 }
 
 .layout_align-start {
-  align-content: end;
+  align-content: start;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
   .layout {
     padding: 1.25rem .75rem;
   }

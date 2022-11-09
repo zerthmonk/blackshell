@@ -1,12 +1,12 @@
 <template>
   <Layout>
     <template #header>
-      <h1>this is grid game</h1>
+      <p class="page-label">this is grid game</p>
     </template>
     <template #main>
       <div class="game">
-        <Field class="field"></Field>
-        <Solving/>
+        <Field class="field"/>
+        <Solving class="info"/>
       </div>
     </template>
     <template #background>
@@ -23,11 +23,18 @@ import Field from "@/components/hack/gridgame/Field.vue";
 import Solving from "@/components/hack/gridgame/Solving.vue";
 
 const store = useStore();
-store.init({size: 5, tries: 6});
+store.init({size: 7, tries: 6});
 
 </script>
 
 <style scoped lang="scss">
+
+.page-label {
+  font-size: .875rem;
+  line-height: 2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 
 .game {
   display: flex;
@@ -44,54 +51,6 @@ store.init({size: 5, tries: 6});
     gap: .15rem;
     z-index: 1;
   }
-
-  .info {
-
-  }
 }
 
-.backtrace {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2rem;
-}
-
-// .dotted {
-//   padding: 1rem;
-//   border: 1px dotted rgba(var(--color-main-val), .15);
-// }
-
-// .denied {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   height: 100%;
-//   padding: 1rem;
-//   overflow-wrap: break-word;
-// }
-
-// .footer, .header {
-//   display: flex;
-//   gap: 2rem;
-//   z-index: 5;
-//   padding-left: 1rem;
-// }
-
-.blurred {
-  transition: all 300ms ease-in-out;
-  filter: blur(3px) contrast(5%);
-}
-
-@media only screen and (max-width: 600px) {
-  .dotted {
-    padding: .5rem;
-  }
-
-  .gridgame__field, .gridgame__backtrace {
-    width: 100%;
-    font-size: .75rem;
-    justify-self: center;
-  }
-}
 </style>

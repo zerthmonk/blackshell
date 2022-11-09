@@ -3,22 +3,22 @@
     <span>{{props.label}}</span>
     <div class="content">
       <component :is="component" v-for="value in content"
-        class="cell"
-        :hexValue="value"
-        :isHighlighted="true"
-        />
+                 class="cell"
+                 :hexValue="value"
+                 :isHighlighted="true"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps, withDefaults, computed } from "vue";
-import Cell from "./Cell.vue";
 import TraceCell from "./TraceCell.vue";
+import Cell from "./Cell.vue";
 
 interface traceProps {
   label: string;
   content: string[];
+  size?: number;
   interactive?: boolean;
 }
 
@@ -34,7 +34,7 @@ const component = computed(() => props.interactive ? TraceCell : Cell);
 .root {
   display: flex;
   flex-direction: column;
-  gap: .75rem;
+  gap: .5rem;
   
   span {
     font-size: .75rem;
@@ -46,7 +46,8 @@ const component = computed(() => props.interactive ? TraceCell : Cell);
   gap: .5rem;
 
   .cell {
-    padding: .5rem;
+    height: auto;
   }
 }
+
 </style>

@@ -24,9 +24,16 @@ import { useStore } from "@/stores/gridgame";
 import FieldCell from './FieldCell.vue';
 
 const store = useStore();
-const { field, size, result, moveMode, hintMode } = storeToRefs(store);
+const { field, size, result } = storeToRefs(store);
 const { addSelected, setHinted } = store;
-const fieldStyle = {grid: `repeat(${size.value}, auto) / repeat(${size.value}, auto)`};
+
+const fieldStyle = {
+  grid: `repeat(${size.value}, auto) / repeat(${size.value}, auto)`,
+};
+
+// const cellStyle = {
+//   padding: ${size.value};
+// }
 
 function handleControls(key: KeyboardEvent) {
   console.log(key);
@@ -45,24 +52,8 @@ onMounted(() => setHinted())
   text-transform: uppercase;
 }
 
-.grid-field__cell {
-  padding: 1.25rem;
-}
-
 .ignored {
   pointer-events: none;
-}
-
-@media only screen and (max-width: 600px) {
-  .grid-field__cell {
-    padding: .75rem;
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .grid-field__cell {
-    padding: .5rem;
-  }
 }
 
 </style>

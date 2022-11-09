@@ -26,8 +26,6 @@ function handleHover(value: boolean) {
 
 <style scoped lang="scss">
 .trace-cell {
-  padding: 1rem;
-
   &:hover {
     border: 1px solid white;
   }
