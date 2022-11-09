@@ -65,10 +65,8 @@ onMounted(() => {
 
 </script>
 
-<style scoped lang="scss">
-@import '~/public/assets/style/variables';
-
-.bg-layer {
+<style lang="scss">
+.bg, .bg__layer {
   position: absolute;
   top: 0;
   left: 0;
@@ -86,13 +84,4 @@ onMounted(() => {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-@media only screen and (max-width: 480px) {
-  .bg-layer {
-    // simple & dirty 'cuz no accessibility options for background exists
-    transform: scaleY(102%) scaleX(99%);
-    opacity: .3 !important;
-  }
-}
-
 </style>
