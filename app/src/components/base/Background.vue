@@ -1,8 +1,8 @@
 <template>
 
-  <div class="bg" :style=filterStyle>
-    <div class="bg__layer bg__svg" :style=bevelStyle></div>
-    <div class="bg__layer bg__layer_textured" :style=backgroundStyle></div>
+  <div class="bg-layer" :style=filterStyle>
+    <div class="bg-layer" :style=bevelStyle></div>
+    <div class="bg-layer textured" :style=backgroundStyle></div>
 
     <audio
       ref="soundBackground"
@@ -66,17 +66,20 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.bg, .bg__layer {
+.bg-layer {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  z-index: -100;
+  z-index: 0;
+  transform: scale(100.8%); // subtlier bevels
 }
 
-.bg__layer_textured {
+.textured {
   opacity: 0.07;
   background-repeat: no-repeat;
   background-size: cover;
