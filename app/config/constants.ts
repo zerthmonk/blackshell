@@ -1,7 +1,6 @@
 export const RESULTS = {
   SUCCESS: 'success',
   FAIL: 'fail',
-  RESET: 'reset',
   NONE: null
 } as const;
 

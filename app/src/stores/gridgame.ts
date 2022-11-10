@@ -1,23 +1,25 @@
 import { defineStore } from 'pinia';
-import { RESULTS, MOVES } from '~/config/constants'
-import { generateField, generateBacktrace, generateBacktraceLinked } from '@/util/gridgame';
-import { CellData, GridGameState, MoveModeType } from '@/typings/modules/gridgame';
+import { MOVES, RESULTS } from '~/config/constants'
+import { generateField, generateBacktraceLinked } from '@/util/gridgame';
+import { CellData, GridGameState, MoveModeType, ResultType } from '@/typings/modules/gridgame';
 
 const [minVal, maxVal] = [5, 7];
 const rangeErrorMessage = `Value should be in range from ${minVal} to ${maxVal}`;
 
+const STATE = {
+  tries: 0,
+  step: 0,
+  size: 0,
+  field: [],
+  traces: [],
+  result: 0,
+  hintMode: false,
+  moveMode: MOVES.AXIS_Y,
+  currentPos: 0,
+}
+
 export const useStore = defineStore('gridgame', {
-  state: (): GridGameState => ({
-    tries: 0,
-    step: 0,
-    size: 0,
-    field: [],
-    traces: [],
-    result: RESULTS.NONE,
-    hintMode: false,
-    moveMode: MOVES.AXIS_Y,
-    currentPos: 0,
-  }),
+  state: (): GridGameState => ({...STATE}),
 
   getters: {
     getSelected(): CellData[] {
@@ -35,6 +37,18 @@ export const useStore = defineStore('gridgame', {
     },
     getSolution(): string[] {
       return Array(this.tries + 1).fill('').map((_, idx) => this.getSelected[idx]?.hex || '::');
+    },
+    getResult(): ResultType {
+      if (this.step >= this.tries && this.result === 0) {
+        return RESULTS.FAIL;
+      } else if (this.result > 0) {
+        return RESULTS.SUCCESS;
+      } else {
+        return RESULTS.NONE;
+      }
+    },
+    isLocked(): boolean {
+      return this.getResult === RESULTS.FAIL;
     }
   },
 
@@ -55,7 +69,8 @@ export const useStore = defineStore('gridgame', {
     },
 
     addSelected(value: CellData) {
-      if (this.getSelected.includes(value)) return;
+      if (this.getSelected.includes(value) || this.isLocked) return;
+      this.hintMode = true;
 
       if (this.getSelectableX(this.moveMode, this.currentPos, value)) {
         this.moveMode = MOVES.AXIS_Y;
@@ -67,21 +82,9 @@ export const useStore = defineStore('gridgame', {
         return;
       }
 
-      this.increaseTriesCount();
+      this.step++
       value.selected = true;
       this.setHinted();
-    },
-
-    increaseTriesCount() {
-      if (this.step >= this.tries && this.result !== RESULTS.SUCCESS) {
-        this.result = RESULTS.FAIL
-      } else {
-        this.step++
-      }
-    },
-
-    toggleHintMode(value?: boolean) {
-      this.hintMode = value || !this.hintMode;      
     },
 
     setHinted() {
