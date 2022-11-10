@@ -59,6 +59,8 @@ export const useStore = defineStore('gridgame', {
       const field = generateField(this.size);
       this.traces = generateBacktraceLinked(field, tries - 1, 3);
       this.field = field.flat();
+      this.hintMode = true;
+      this.setHinted();
     },
 
     setSize(value: number) {
@@ -70,7 +72,7 @@ export const useStore = defineStore('gridgame', {
 
     addSelected(value: CellData) {
       if (this.getSelected.includes(value) || this.isLocked) return;
-      this.hintMode = true;
+      this.hintMode = false;
 
       if (this.getSelectableX(this.moveMode, this.currentPos, value)) {
         this.moveMode = MOVES.AXIS_Y;
@@ -85,6 +87,7 @@ export const useStore = defineStore('gridgame', {
       this.step++
       value.selected = true;
       this.setHinted();
+      // this.$reset();
     },
 
     setHinted() {

@@ -26,12 +26,14 @@ function handleHover(value: boolean) {
 
 <style scoped lang="scss">
 .trace-cell {
+  cursor: pointer;
   &:hover {
     border: 1px solid white;
   }
 }
 
 .disabled {
+  cursor: auto;
   pointer-events: none;
   filter: brightness(50%);
 }

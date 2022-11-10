@@ -1,6 +1,6 @@
 <template>
   <div class="grid-field"
-       :class="{ignored: result !== RESULTS.NONE}"
+       :class="{ignored: isLocked}"
        :style="fieldStyle"
        @keyup={handleControls}
        tabindex="1"
@@ -24,8 +24,8 @@ import { useStore } from "@/stores/gridgame";
 import FieldCell from './FieldCell.vue';
 
 const store = useStore();
-const { field, size, result } = storeToRefs(store);
-const { addSelected, setHinted } = store;
+const { field, size } = storeToRefs(store);
+const { addSelected, setHinted, isLocked } = store;
 
 const fieldStyle = {
   grid: `repeat(${size.value}, auto) / repeat(${size.value}, auto)`,

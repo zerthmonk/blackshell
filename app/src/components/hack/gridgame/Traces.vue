@@ -3,7 +3,7 @@
     <Trace v-for="(trace, idx) in traces"
       :label="getLabel(idx)"
       :content="getHexes(trace)"
-      :interactive="!hintMode"/>
+      :interactive="hintMode"/>
   </div>
 </template>
 
