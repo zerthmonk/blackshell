@@ -1,6 +1,9 @@
 <template>
   <div class="root">
-    <Trace v-for="(trace, idx) in traces" :label="getLabel(idx)" :content="getHexes(trace)"/>
+    <Trace v-for="(trace, idx) in traces"
+      :label="getLabel(idx)"
+      :content="getHexes(trace)"
+      :interactive="!hintMode"/>
   </div>
 </template>
 
@@ -11,7 +14,7 @@ import { CellData } from "@/typings/modules/gridgame.vue";
 import Trace from "./Trace.vue";
 
 const store = useStore();
-const { traces } = storeToRefs(store);
+const { traces, hintMode } = storeToRefs(store);
 
 function getLabel(idx: number) {
   return `attack vector ${idx + 1}`;
