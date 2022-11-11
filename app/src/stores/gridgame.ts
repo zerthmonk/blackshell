@@ -39,7 +39,7 @@ export const useStore = defineStore('gridgame', {
       return Array(this.tries + 1).fill('').map((_, idx) => this.getSelected[idx]?.hex || '::');
     },
     getResult(): ResultType {
-      if (this.step >= this.tries && this.result === 0) {
+      if (this.step > this.tries && this.result === 0) {
         return RESULTS.FAIL;
       } else if (this.result > 0) {
         return RESULTS.SUCCESS;
