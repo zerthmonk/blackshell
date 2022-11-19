@@ -1,4 +1,5 @@
-FROM node:17-alpine as base
+FROM node:16-alpine as base
+RUN npm install -g npm@9.1.2
 
 WORKDIR /app
 
