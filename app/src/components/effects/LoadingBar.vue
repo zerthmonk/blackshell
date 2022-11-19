@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults, computed } from "vue"
+import { defineProps, withDefaults, computed } from "vue";
 
 interface styleType {
   animationName: string;
@@ -25,43 +25,43 @@ interface loadingBarProps {
   duration?: number;
   invert?: boolean;
   start?: boolean;
-  direction?: 'normal' | 'vertical';
+  direction?: "normal" | "vertical";
 }
 
 const props = withDefaults(defineProps<loadingBarProps>(), {
-  color: 'white',
-  direction: 'normal',
+  color: "white",
+  direction: "normal",
   duration: 5,
   invert: false,
-  start: false
-})
+  start: false,
+});
 
 function getHorizontalStyle() {
   let style: styleType = {
-    height: '100%',
-    minHeight: 'inherit',
-    animationName: props.invert ? 'fill_invert_x' : 'fill_normal_x',
-    animationDuration: `${props.duration + .3}s`,
-  }
-  return props.invert ? {...style, right: 0} : {...style, left: 0};
+    height: "100%",
+    minHeight: "inherit",
+    animationName: props.invert ? "fill_invert_x" : "fill_normal_x",
+    animationDuration: `${props.duration + 0.3}s`,
+  };
+  return props.invert ? { ...style, right: 0 } : { ...style, left: 0 };
 }
 
 function getVerticalStyle() {
   let style: styleType = {
-    width: '100%',
-    minWidth: 'inherit',
-    animationName: props.invert ? 'fill_invert_y' : 'fill_normal_y',
-    animationDuration: `${props.duration + .3}s`,
-  }
-  return props.invert ? {...style, bottom: 0} : {...style, top: 0};
+    width: "100%",
+    minWidth: "inherit",
+    animationName: props.invert ? "fill_invert_y" : "fill_normal_y",
+    animationDuration: `${props.duration + 0.3}s`,
+  };
+  return props.invert ? { ...style, bottom: 0 } : { ...style, top: 0 };
 }
 
 const barStyle = computed(() => {
-  const background = {background: props.color};
-  const style = props.direction === 'normal' ? getHorizontalStyle() : getVerticalStyle();
-  return props.start ? {...background, ...style} : background;
-})
-
+  const background = { background: props.color };
+  const style =
+    props.direction === "normal" ? getHorizontalStyle() : getVerticalStyle();
+  return props.start ? { ...background, ...style } : background;
+});
 </script>
 
 <style lang="scss">

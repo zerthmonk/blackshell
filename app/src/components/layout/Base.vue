@@ -30,7 +30,7 @@
 
 @media only screen and (max-width: 768px) {
   .root {
-    padding: 1.25rem .5rem;
+    padding: 1.25rem 0.5rem;
   }
 }
 </style>
