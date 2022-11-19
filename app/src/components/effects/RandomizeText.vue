@@ -80,7 +80,7 @@ watch(
   () => printing.value,
   () => {
     if (!audio.value) return;
-    if (&& !props.muted && printing.value === true) {
+    if (!props.muted && printing.value === true) {
       const rate = props.speed * 0.5;
       audio.value.playbackRate = rate > 16 ? 16 : rate;
       audio.value.play();
