@@ -1,12 +1,13 @@
-FROM node:17-alpine as base
+FROM node:16-alpine as base
+RUN npm install -g npm@latest
 
-WORKDIR /app
+WORKDIR /opt
 
-RUN chown -R node:node .
-COPY --chown=node:node /app .
-RUN npm i
+COPY app/package*.json /opt/
+RUN npm i --prefix /opt
 
-USER node
+COPY . /opt
 
-EXPOSE 8080
+EXPOSE 5173
 
+CMD [ "sh", "-c", "/opt/entrypoint.sh" ]

@@ -30,8 +30,8 @@
 
 <script setup lang="ts">
 import { useStore } from "@/stores/gridgame";
-import Layout from "@/components/layout/Base.vue";
-import Background from "@/components/base/Background.vue";
+import Layout from "@/components/layout/BaseLayout.vue";
+import Background from "@/components/base/BackGround.vue";
 import Field from "@/components/hack/gridgame/Field.vue";
 import Traces from "@/components/hack/gridgame/Traces.vue";
 import Solution from "@/components/hack/gridgame/Solution.vue";

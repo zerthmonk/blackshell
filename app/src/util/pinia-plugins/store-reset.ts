@@ -1,11 +1,8 @@
-import cloneDeep from 'lodash.clonedeep';
-import { StoreDefinition } from 'pinia';
+import cloneDeep from "lodash.clonedeep";
 
-interface resetType {
-  store: StoreDefinition
-}
+// todo: pinia store type
 
-export default function resetStore({ store }: resetType) {
-  const initialState = cloneDeep(store.$state)
-  store.$reset = () => store.$patch(cloneDeep(initialState))
+export default function resetStore({ store }) {
+  const initialState = cloneDeep(store.$state);
+  store.$reset = () => store.$patch(cloneDeep(initialState));
 }

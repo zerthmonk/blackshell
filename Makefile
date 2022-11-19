@@ -23,7 +23,7 @@ sh: ##  Открыть shell в контейнере приложения
 	docker-compose exec ${APP_NAME} sh
 	
 logs: ##  Отобразить логи контейнера приложения
-	docker-compose logs ${APP_NAME}
+	docker-compose logs -f ${APP_NAME}
 
 test: ##  Открыть shell в контейнере приложения
 	docker-compose up --no-recreate -d

@@ -3,8 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import GridGameScreen from './pages/GridGameScreen.vue';
+import GridGameScreen from './screens/GridGameScreen.vue';
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
