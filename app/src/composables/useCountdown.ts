@@ -1,4 +1,4 @@
-import { ref, onUnmounted } from 'vue';
+import { ref, onUnmounted } from "vue";
 
 export const useCountdown = (seconds: number, controls?: boolean) => {
   const count = ref(seconds);
@@ -6,7 +6,7 @@ export const useCountdown = (seconds: number, controls?: boolean) => {
 
   function start() {
     _interval = setInterval(() => {
-      count.value = count.value - 1
+      count.value = count.value - 1;
       if (count.value <= 0) {
         clearInterval(_interval);
       }
@@ -21,8 +21,8 @@ export const useCountdown = (seconds: number, controls?: boolean) => {
   onUnmounted(() => stop());
 
   if (controls) {
-    return { count, start, stop }
+    return { count, start, stop };
   } else {
-    return { count }
+    return { count };
   }
-}
+};
