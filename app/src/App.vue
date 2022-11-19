@@ -6,5 +6,4 @@
 import Timer from '@/components/misc/Timer.vue';
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
