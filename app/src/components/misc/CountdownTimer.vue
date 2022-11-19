@@ -5,15 +5,16 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed, reactive } from "vue";
+import { defineProps, defineEmits, computed, reactive, watch } from "vue";
 import { useCountdown } from "@/composables/useCountdown.ts";
 import { getTimestampValues } from "@/util/helpers.ts";
 
 interface timerProps {
   seconds: number;
   notifyOn?: number;
-  onEnd?: Function;
 }
+
+const emit = defineEmits(["end"]);
 
 const props = defineProps<timerProps>();
 const countdown = reactive(useCountdown(props.seconds));
@@ -22,6 +23,10 @@ const timer = computed(() => {
   return getTimestampValues(now + countdown.count * 1000 - now).join(":");
 });
 const blinking = computed(() => countdown.count <= props.notifyOn);
+watch(
+  () => countdown.count === 0,
+  () => emit("end")
+);
 </script>
 
 <style lang="scss">
