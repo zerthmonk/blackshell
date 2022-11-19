@@ -10,14 +10,17 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "typeRoots": [
-      "node_modules/@types",
-      "custom"
-    ],
+    "typeRoots": ["node_modules/@types", "custom"],
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./*"]
     }
   },
-  "include": ["*.ts", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": [
+    "*.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ]
 }
