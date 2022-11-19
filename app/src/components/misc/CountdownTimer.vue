@@ -22,7 +22,9 @@ const timer = computed(() => {
   const now = new Date().getTime();
   return getTimestampValues(now + countdown.count * 1000 - now).join(":");
 });
-const blinking = computed(() => props?.notifyOn ? countdown.count <= props.notifyOn : false);
+const blinking = computed(() =>
+  props?.notifyOn ? countdown.count <= props.notifyOn : false
+);
 watch(
   () => countdown.count === 0,
   () => emit("end")
