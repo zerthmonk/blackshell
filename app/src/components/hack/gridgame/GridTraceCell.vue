@@ -1,18 +1,19 @@
 <template>
-  <Cell class="trace-cell"
-        :hexValue="props.hexValue"
-        @mouseover="() => handleHover(true)"
-        @mouseout="() => handleHover(false)"
+  <Cell
+    class="trace-cell"
+    :hexValue="props.hexValue"
+    @mouseover="() => handleHover(true)"
+    @mouseout="() => handleHover(false)"
   />
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-import { useStore } from '@/stores/gridgame';
-import Cell from './Cell.vue';
+import { defineProps } from "vue";
+import { useStore } from "@/stores/gridgame";
+import Cell from "./GridCell.vue";
 
-interface TraceCellProps {
-  hexValue: string | number;
+export interface TraceCellProps {
+  hexValue: string;
 }
 
 const props = defineProps<TraceCellProps>();
@@ -21,7 +22,6 @@ const store = useStore();
 function handleHover(value: boolean) {
   store.setHighlighted(props.hexValue, value);
 }
-
 </script>
 
 <style scoped lang="scss">

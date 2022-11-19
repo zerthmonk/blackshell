@@ -1,42 +1,48 @@
-import { defineStore } from 'pinia';
-import { MOVES, RESULTS } from '~/config/constants'
-import { generateField, generateBacktraceLinked } from '@/util/gridgame';
-import { CellData, GridGameState, MoveModeType, ResultType } from '@/typings/modules/gridgame';
+import { defineStore } from "pinia";
+import { MOVES, RESULTS } from "~/config/constants";
+import type {
+  CellData,
+  GridGameState,
+  StoreInitType,
+  MoveModeType,
+  ResultType,
+} from "@/typings/modules/gridgame";
+import { generateField, generateBacktraceLinked } from "@/util/gridgame";
 
 const [minVal, maxVal] = [5, 7];
 const rangeErrorMessage = `Value should be in range from ${minVal} to ${maxVal}`;
 
-const STATE = {
-  tries: 0,
-  step: 0,
-  size: 0,
-  field: [],
-  traces: [],
-  result: 0,
-  hintMode: false,
-  moveMode: MOVES.AXIS_Y,
-  currentPos: 0,
-}
-
-export const useStore = defineStore('gridgame', {
-  state: (): GridGameState => ({...STATE}),
+export const useStore = defineStore("gridgame", {
+  state: (): GridGameState => ({
+    tries: 0,
+    step: 0,
+    size: 0,
+    field: [],
+    traces: [],
+    result: 0,
+    hintMode: false,
+    moveMode: MOVES.AXIS_Y,
+    currentPos: 0,
+  }),
 
   getters: {
     getSelected(): CellData[] {
-      return this.field.filter(cell => cell.selected);
+      return this.field.filter((cell: CellData) => cell.selected);
     },
     getSelectableX() {
       return (mode: MoveModeType, pos: number, cell: CellData): boolean => {
         return mode === MOVES.AXIS_X && cell.row === pos;
-      }
+      };
     },
     getSelectableY() {
       return (mode: MoveModeType, pos: number, cell: CellData): boolean => {
         return mode === MOVES.AXIS_Y && cell.col === pos;
-      }
+      };
     },
     getSolution(): string[] {
-      return Array(this.tries + 1).fill('').map((_, idx) => this.getSelected[idx]?.hex || '::');
+      return Array(this.tries + 1)
+        .fill("")
+        .map((_, idx) => this.getSelected[idx]?.hex || "::");
     },
     getResult(): ResultType {
       if (this.step > this.tries && this.result === 0) {
@@ -49,11 +55,11 @@ export const useStore = defineStore('gridgame', {
     },
     isLocked(): boolean {
       return this.getResult === RESULTS.FAIL;
-    }
+    },
   },
 
   actions: {
-    init({size, tries}) {
+    init({ size, tries }: StoreInitType) {
       this.setSize(size);
       this.tries = tries; // todo: acquire from API
       const field = generateField(this.size);
@@ -65,7 +71,9 @@ export const useStore = defineStore('gridgame', {
 
     setSize(value: number) {
       if (value < minVal || value > maxVal) {
-        throw new Error(`Incorrect size value: '${this.size}'. ${rangeErrorMessage}`)
+        throw new Error(
+          `Incorrect size value: '${this.size}'. ${rangeErrorMessage}`
+        );
       }
       this.size = value;
     },
@@ -84,26 +92,26 @@ export const useStore = defineStore('gridgame', {
         return;
       }
 
-      this.step++
+      this.step++;
       value.selected = true;
       this.setHinted();
       // this.$reset();
     },
 
     setHinted() {
-      this.field.forEach(cell => {
-        cell.hinted = this.getSelectableX(this.moveMode, this.currentPos, cell)
-                      || this.getSelectableY(this.moveMode, this.currentPos, cell)
-      })
+      this.field.forEach((cell) => {
+        cell.hinted =
+          this.getSelectableX(this.moveMode, this.currentPos, cell) ||
+          this.getSelectableY(this.moveMode, this.currentPos, cell);
+      });
     },
 
     setHighlighted(hex: string, value: boolean) {
       if (value === true) {
-        this.field.forEach(cell => cell.hinted = cell.hex === hex);
+        this.field.forEach((cell) => (cell.hinted = cell.hex === hex));
       } else {
         this.setHinted();
       }
-    }
-  }
-
-})
+    },
+  },
+});

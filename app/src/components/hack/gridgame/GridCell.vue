@@ -1,25 +1,27 @@
 <template>
-  <div class="cell" :class="{
-    highlighted: props.isHighlighted,
-    selected: props.isSelected,
-    hinted: props.isHinted
-  }">
+  <div
+    class="cell"
+    :class="{
+      highlighted: props.isHighlighted,
+      selected: props.isSelected,
+      hinted: props.isHinted,
+    }"
+  >
     <span>{{ props.hexValue }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import {defineProps} from "vue";
+import { defineProps } from "vue";
 
-interface cellProps {
+export interface CellProps {
   isHighlighted?: boolean;
   isSelected?: boolean;
   isHinted?: boolean;
   hexValue: string | number;
 }
 
-const props = defineProps<cellProps>();
-
+const props = defineProps<CellProps>();
 </script>
 
 <style scoped lang="scss">
@@ -32,10 +34,10 @@ const props = defineProps<cellProps>();
   justify-content: center;
   align-items: center;
   letter-spacing: 1px;
-  padding: .5em;
+  padding: 0.5em;
   aspect-ratio: 1 / 1;
   border: 1px solid transparent;
-  background: rgb(15,15,15, .5);
+  background: rgb(15, 15, 15, 0.5);
 
   span {
     user-select: none;
@@ -43,20 +45,20 @@ const props = defineProps<cellProps>();
 }
 
 .hinted.highlighted {
-  border: 1px solid rgba(255,255,255,.5);
-  background: rgba(150,150,150,.5)
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(150, 150, 150, 0.5);
 }
 
 .selected {
-  border: 1px dotted rgba(155,155,155,.5);
-  background: rgba(150, 150, 150, .5);
+  border: 1px dotted rgba(155, 155, 155, 0.5);
+  background: rgba(150, 150, 150, 0.5);
 }
 
 .hinted {
-  background: rgba(75,75,75, .5);
+  background: rgba(75, 75, 75, 0.5);
 }
 
 .highlighted {
-  border: 1px solid rgba(255,255,255,.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 </style>

@@ -1,13 +1,13 @@
 <template>
   <div class="root">
-    <Trace :content="getSolution" :interactive="false"/>
+    <Trace :content="getSolution" :interactive="false" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { useStore } from '@/stores/gridgame';
-import Trace from "./Trace.vue";
+import { useStore } from "@/stores/gridgame";
+import Trace from "./GridTrace.vue";
 
 const store = useStore();
 const { getSolution } = storeToRefs(store);

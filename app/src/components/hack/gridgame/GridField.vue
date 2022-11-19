@@ -1,27 +1,31 @@
 <template>
-  <div class="grid-field"
-       :class="{ignored: isLocked}"
-       :style="fieldStyle"
-       @keyup={handleControls}
-       tabindex="1"
-       >
-       <FieldCell v-for="cell of field"
-          class="grid-field__cell"
-          :hexValue="cell.hex"
-          :selected="cell.selected"
-          :hinted="cell.hinted"
-          @select="() => handleCellSelect(cell)"
-       />
+  <div
+    class="field"
+    :class="{ ignored: isLocked }"
+    :style="fieldStyle"
+    @keyup="
+      {
+        handleControls;
+      }
+    "
+    tabindex="1"
+  >
+    <FieldCell
+      v-for="(cell, index) of field"
+      :key="index"
+      :hexValue="cell.hex"
+      :selected="cell.selected"
+      :hinted="cell.hinted"
+      @select="() => handleCellSelect(cell)"
+    />
   </div>
 </template>
 <script setup lang="ts">
+import type { CellData } from "@/typings/modules/gridgame";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
-
-import { RESULTS } from "~/config/constants";
-import { CellData } from "@/typings/modules/gridgame";
 import { useStore } from "@/stores/gridgame";
-import FieldCell from './FieldCell.vue';
+import FieldCell from "./FieldGridCell.vue";
 
 const store = useStore();
 const { field, size } = storeToRefs(store);
@@ -39,11 +43,10 @@ function handleCellSelect(cell: CellData) {
   addSelected(cell);
 }
 
-onMounted(() => setHinted())
-
+onMounted(() => setHinted());
 </script>
 <style scoped lang="scss">
-.grid-field {
+.field {
   width: 100%;
   outline: none;
   text-transform: uppercase;
@@ -53,5 +56,4 @@ onMounted(() => setHinted())
 .ignored {
   pointer-events: none;
 }
-
 </style>
