@@ -11,11 +11,6 @@ export default defineConfig({
       "~": path.resolve(__dirname, ""),
     },
   },
-  server: {
-    hmr: {
-      port: 8080,
-    },
-  },
   css: {
     preprocessorOptions: {
       scss: {

@@ -10,7 +10,6 @@
 import { computed, defineProps } from "vue";
 
 interface StdoutProps {
-  // userid: string;
   content: string;
   timestamp: number;
   isResponse?: boolean;

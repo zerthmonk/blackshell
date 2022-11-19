@@ -20,12 +20,7 @@ import bevelSvg from "~/public/assets/img/bevel.min.svg";
 import background from "~/public/assets/img/bg.png";
 import bgAudio from "~/public/assets/sound/bg.ogg";
 
-interface BackgroundTheme {
-  filter: string;
-  opacity: string;
-}
-
-interface BackgroundProps {
+export interface BackgroundProps {
   theme?: string;
   muted?: boolean;
 }
@@ -49,7 +44,7 @@ const soundBackground = ref(null);
 const bevelStyle = { backgroundImage: `url(${bevelSvg})` };
 const backgroundStyle = { backgroundImage: `url(${background})` };
 
-const filterStyle: BackgroundTheme = computed(() => {
+const filterStyle = computed(() => {
   const [hue, opacity, brightness] = [...filters[props.theme]];
   return {
     filter: `hue-rotate(${hue}deg) brightness(${brightness}%)`,

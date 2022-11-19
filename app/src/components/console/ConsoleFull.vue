@@ -2,16 +2,12 @@
   <div class="console">
     <div class="console__history" ref="history">
       <Stdout
-        v-for="(message, index) in data.stdout"
+        v-for="({ timestamp, message, response }, index) in data.stdout"
+        :key="index"
         :content="message"
-        :timestamp="2314124"
-        :isResponse="false"
+        :timestamp="timestamp"
+        :isResponse="response"
       ></Stdout>
-      <!-- <Stdout v-for="({timestamp, message, response}, index) in data.stdout"
-              :content="message"
-              :timestamp="timestamp"
-              :isResponse="response"
-              ></Stdout> -->
     </div>
     <div class="console__stdin">
       <span class="prompt">user#> </span>
@@ -28,7 +24,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, onMounted, watch } from "vue";
-import Stdout from "@/components/console/Stdout.vue";
+import Stdout from "@/components/console/ConsoleStdout.vue";
 
 const input = ref(null);
 const history = ref(null);
@@ -63,8 +59,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 $console-font-size: 1.75rem;
-// $stdin-bottom-margin: .5rem;
-
 .console {
   display: flex;
   flex: 1;
@@ -93,6 +87,7 @@ $console-font-size: 1.75rem;
     background: none;
     border: 0;
     border-radius: 0;
+
     &:focus,
     &:active {
       outline: none;

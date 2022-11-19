@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { defineProps, withDefaults, computed } from "vue";
 
-interface styleType {
+export interface StyleType {
   animationName: string;
   animationDuration: string;
   height?: string;
@@ -20,7 +20,7 @@ interface styleType {
   bottom?: number;
 }
 
-interface loadingBarProps {
+export interface LoadingBarProps {
   color?: string;
   duration?: number;
   invert?: boolean;
@@ -28,7 +28,7 @@ interface loadingBarProps {
   direction?: "normal" | "vertical";
 }
 
-const props = withDefaults(defineProps<loadingBarProps>(), {
+const props = withDefaults(defineProps<LoadingBarProps>(), {
   color: "white",
   direction: "normal",
   duration: 5,
@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<loadingBarProps>(), {
 });
 
 function getHorizontalStyle() {
-  let style: styleType = {
+  let style: StyleType = {
     height: "100%",
     minHeight: "inherit",
     animationName: props.invert ? "fill_invert_x" : "fill_normal_x",
@@ -47,7 +47,7 @@ function getHorizontalStyle() {
 }
 
 function getVerticalStyle() {
-  let style: styleType = {
+  let style: StyleType = {
     width: "100%",
     minWidth: "inherit",
     animationName: props.invert ? "fill_invert_y" : "fill_normal_y",

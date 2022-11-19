@@ -14,8 +14,7 @@
   "dependencies": {
     "pinia": "^2.0.23",
     "pinia-plugin-persist": "^0.0.93",
-    "vue": "^3.2.41",
-    "vue-use": "^0.2.0"
+    "vue": "^3.2.41"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
