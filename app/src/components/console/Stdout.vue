@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue'
+import { computed, defineProps } from "vue";
 
 interface StdoutProps {
   // userid: string;
@@ -17,17 +17,16 @@ interface StdoutProps {
 }
 
 const props = defineProps<StdoutProps>();
-const prompt = computed(() => props?.isResponse ? "<<" : ">>");
-
+const prompt = computed(() => (props?.isResponse ? "<<" : ">>"));
 </script>
 <style module lang="scss">
 .stdout {
   display: flex;
   font-size: 1.5rem;
   letter-spacing: 1px;
-  gap: .25rem;
+  gap: 0.25rem;
   .response {
-    color: darken(rgba($color-main, .8), 10%)
+    color: darken(rgba($color-main, 0.8), 10%);
   }
 }
 </style>

@@ -1,24 +1,30 @@
 .distort {
-  animation: distortion .85s ease-in-out infinite reverse;
+  animation: distortion 0.85s ease-in-out infinite reverse;
 }
 
-@keyframes distortion{
-  2%,62%{
-    transform: translate(2px,0) skew(2deg);
+@keyframes distortion {
+  2%,
+  62% {
+    transform: translate(2px, 0) skew(2deg);
   }
-  4%,60%{
-    transform: translate(-2px,2px) skew(0deg);
+  4%,
+  60% {
+    transform: translate(-2px, 2px) skew(0deg);
   }
-  61%{
+  61% {
     filter: hue-rotate(2deg) brightness(125%);
-    transform: translate(0px,-2px) skew(12deg) scaleY(.9) scaleX(.9);
+    transform: translate(0px, -2px) skew(12deg) scaleY(0.9) scaleX(0.9);
   }
 }
 
-.distort{
+.distort {
   .glitch {
-    p:before, span:before, a:before,
-    p:after, span:after, a:after {
+    p:before,
+    span:before,
+    a:before,
+    p:after,
+    span:after,
+    a:after {
       content: attr(title);
       position: absolute;
       left: 0;
@@ -26,9 +32,11 @@
   }
 }
 
-.distort{
+.distort {
   .glitch {
-    p:before, span:before, a:before {
+    p:before,
+    span:before,
+    a:before {
       animation: distortionTop 1.5s ease-in-out infinite reverse;
       clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
       -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
@@ -36,22 +44,26 @@
   }
 }
 
-@keyframes distortionTop{
-  2%,65%{
-    transform: translate(2px,-2px);
+@keyframes distortionTop {
+  2%,
+  65% {
+    transform: translate(2px, -2px);
   }
-  4%,60%{
-    transform: translate(-2px,2px);
+  4%,
+  60% {
+    transform: translate(-2px, 2px);
   }
-  62%{
+  62% {
     filter: hue-rotate(5deg);
-    transform: translate(2px,-1px) skew(-5deg);
+    transform: translate(2px, -1px) skew(-5deg);
   }
 }
 
-.distort{
+.distort {
   .glitch {
-    p:after, span:after, a:after {
+    p:after,
+    span:after,
+    a:after {
       animation: distortionBotom 1.5s ease-in infinite;
       clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
       -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
@@ -59,15 +71,17 @@
   }
 }
 
-@keyframes distortionBotom{
-  2%,75%{
-    transform: translate(-2px,0);
+@keyframes distortionBotom {
+  2%,
+  75% {
+    transform: translate(-2px, 0);
   }
-  4%,60%{
-    transform: translate(-2px,0);
+  4%,
+  60% {
+    transform: translate(-2px, 0);
   }
-  62%{
+  62% {
     filter: brightness(180%);
-    transform: translate(0px,1px) skew(15deg);
+    transform: translate(0px, 1px) skew(15deg);
   }
 }

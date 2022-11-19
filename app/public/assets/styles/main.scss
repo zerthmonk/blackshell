@@ -1,18 +1,19 @@
-@import '~/public/assets/styles/reset.scss';
-@import '~/public/assets/styles/fonts.scss';
-@import '~/public/assets/styles/variables.scss';
+@import "~/public/assets/styles/reset.scss";
+@import "~/public/assets/styles/fonts.scss";
+@import "~/public/assets/styles/variables.scss";
 
-body, html {
+body,
+html {
   height: 100vh;
   width: 100vw;
   background: $black;
   font-family: $main-font, monospace;
-  color: rgba($color-main, .8);
+  color: rgba($color-main, 0.8);
   overflow: hidden;
 }
 
 a {
-  color: rgba($color-main, .8);
+  color: rgba($color-main, 0.8);
   text-decoration: none;
   outline: none;
 }
@@ -28,15 +29,15 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  border: 1px solid rgba(255,255,255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-top: 0;
   border-bottom: 0;
-  background: transparent;        /* color of the tracking area */
+  background: transparent; /* color of the tracking area */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(243, 255, 236, 0.1);    /* color of the scroll thumb */
-  border: 1px solid rgba($color-main, .8);  /* creates padding around scroll thumb */
+  background-color: rgba(243, 255, 236, 0.1); /* color of the scroll thumb */
+  border: 1px solid rgba($color-main, 0.8); /* creates padding around scroll thumb */
 }
 
 .noselect {

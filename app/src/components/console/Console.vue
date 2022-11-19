@@ -1,11 +1,12 @@
 <template>
   <div class="console">
     <div class="console__history" ref="history">
-      <Stdout v-for="(message, index) in data.stdout"
-              :content="message"
-              :timestamp="2314124"
-              :isResponse="false"
-              ></Stdout>
+      <Stdout
+        v-for="(message, index) in data.stdout"
+        :content="message"
+        :timestamp="2314124"
+        :isResponse="false"
+      ></Stdout>
       <!-- <Stdout v-for="({timestamp, message, response}, index) in data.stdout"
               :content="message"
               :timestamp="timestamp"
@@ -14,45 +15,50 @@
     </div>
     <div class="console__stdin">
       <span class="prompt">user#> </span>
-      <input class="console__input"
-             ref="input"
-             type="text"
-             v-model="data.stdin"
-             @keyup.enter="execute"/>
+      <input
+        class="console__input"
+        ref="input"
+        type="text"
+        v-model="data.stdin"
+        @keyup.enter="execute"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, onMounted, watch } from 'vue';
+import { reactive, ref, onMounted, watch } from "vue";
 import Stdout from "@/components/console/Stdout.vue";
 
 const input = ref(null);
 const history = ref(null);
 
 const data = reactive({
-  stdin: '',
-  prompt: '$>',
+  stdin: "",
+  prompt: "$>",
   history: [],
   stdout: [],
   locked: false,
-})
+});
 
 function execute() {
   data.history = [...data.history, data.stdin];
   data.stdout = [...data.stdout, data.stdin];
-  data.stdin = '';
+  data.stdin = "";
 }
 
-watch(() => data.history, () => {
-  console.log('watch')
-  history.value.scrollTo({top: history.value.scrollHeight})
-}, {flush: 'post'})
+watch(
+  () => data.history,
+  () => {
+    console.log("watch");
+    history.value.scrollTo({ top: history.value.scrollHeight });
+  },
+  { flush: "post" }
+);
 
 onMounted(() => {
   input.value.focus();
-})
-
+});
 </script>
 
 <style lang="scss" scoped>
@@ -83,11 +89,12 @@ $console-font-size: 1.75rem;
     height: $console-font-size;
     font-size: $console-font-size;
     font-family: $main-font, monospace;
-    color: rgba($color-main, .8);
+    color: rgba($color-main, 0.8);
     background: none;
     border: 0;
     border-radius: 0;
-    &:focus, &:active {
+    &:focus,
+    &:active {
       outline: none;
     }
   }
@@ -102,5 +109,4 @@ $console-font-size: 1.75rem;
   overflow-y: auto;
   box-sizing: border-box;
 }
-
 </style>
